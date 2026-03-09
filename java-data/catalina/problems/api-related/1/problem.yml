@@ -10,6 +10,7 @@ fix:
             use StringBuilder instead of StringBuffer
             svn path=/trunk/; revision=38313 Former-commit-id: e1487a72bea5cd933259f2d37c5d7bc83842f707
     commit: https://github.com/mahairod/catalina/commit/0c762b9
+    reverted: True
 location:
     file: 
         java/org/apache/catalina/util/URL.java

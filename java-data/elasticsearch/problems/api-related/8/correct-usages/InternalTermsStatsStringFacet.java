@@ -19,7 +19,7 @@ public class InternalTermsStatsStringFacet extends InternalTermsStatsFacet {
      
           ExtTHashMap<String, StringEntry> map = aggregateCache.get().get();
           
-          List<StringEntry> ordered = new ArrayList<StringEntry>(map.size());
+          List<DoubleEntry> ordered = new ArrayList<DoubleEntry>();
           
           // ...
           

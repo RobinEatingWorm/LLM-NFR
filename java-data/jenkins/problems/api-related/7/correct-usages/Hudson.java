@@ -85,10 +85,7 @@ public final class Hudson extends View implements ItemGroup<TopLevelItem>, Node 
   * Called once the user logs in. Just forward to the top page.
   */
     public void doLoginEntry( StaplerRequest req, StaplerResponse rsp ) throws IOException {
-        if(req.getUserPrincipal()==null)
-            rsp.sendRedirect2("noPrincipal");
-        else
-            rsp.sendRedirect2(".");
+       rsp.sendRedirect2(req.getContextPath()+"/");
      }
 
 

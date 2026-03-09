@@ -9,6 +9,7 @@ fix:
     commit message: >
         improved the error diagnostics when authentication is not set up in the container
     commit: https://github.com/jenkinsci/jenkins/commit/feaf22a
+    reverted: True
 location:
     file: core/src/main/java/hudson/model/Hudson.java
     method: doLoginEntry( StaplerRequest req, StaplerResponse rsp ) throws IOException

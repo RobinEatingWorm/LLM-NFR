@@ -1,6 +1,7 @@
 
 package com.mojang.mojam;
 
+import java.util.ArrayList;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 
@@ -10,8 +11,7 @@ import com.mojang.mojam.gui.JoyBindingsMenu;
 
 public class JoypadHandler {
     public Controller controller;
-    public Button[] buttons;
-    public Axis[] axes;
+    public ArrayList<Object> butaxes;
     
     public int buttonCount;
     public int axisCount;
@@ -20,10 +20,8 @@ public class JoypadHandler {
       controller = Controllers.getController(index);
 
       buttonCount = controller.getButtonCount();
-      buttons = new Button[buttonCount];
 
       axisCount = controller.getAxisCount();
-      axes = new Axis[axisCount + 2]; 
 
       // ...
 

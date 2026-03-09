@@ -58,9 +58,8 @@ public class IndicesQueryCache extends AbstractComponent implements RemovalListe
   
         @Override
         public Value call() throws Exception {
-
-            final int expectedSizeInBytes = 512;
-            try (BytesStreamOutput out = new BytesStreamOutput(expectedSizeInBytes)) {
+            
+            try (BytesStreamOutput out = new BytesStreamOutput()) {
                 final BytesReference reference = out.bytes();
                 Value value = new Value(reference, out.ramBytesUsed());
                 return value;

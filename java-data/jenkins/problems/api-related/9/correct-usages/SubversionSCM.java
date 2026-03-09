@@ -78,12 +78,6 @@ public class SubversionSCM extends SCM implements Serializable {
                     File file = getRevisionFile(build);
 
                     BufferedReader br = new BufferedReader(new FileReader(file));
-                    try {
-                        // ...
-                        }
-                    finally {
-                        br.close();
-                    }
                 }
                 return revisions;
             }

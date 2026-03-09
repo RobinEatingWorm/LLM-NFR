@@ -28,8 +28,6 @@ import java.util.logging.Logger;
 private static final class Dependency {
         
         public void pattern(StaplerRequest req, StaplerResponse rsp) throws IOException {
-                if(!Hudson.adminCheck(req,rsp))
-                    return;
                 enable();
                 rsp.setStatus(200);
             }

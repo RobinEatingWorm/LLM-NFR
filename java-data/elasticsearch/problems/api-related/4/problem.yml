@@ -11,6 +11,7 @@ fix:
             single quote in the same `PluginInfo#toString()` method.
             Closes #5605
     commit: https://github.com/elastic/elasticsearch/commit/70c089d
+    reverted: True
 location:
     file: 
         src/main/java/org/elasticsearch/action/admin/cluster/node/info/PluginInfo.java

@@ -11,6 +11,7 @@ fix:
             This removes all instances of StringBuffer that are removeable.
             Uncontended synchronization in Java is pretty cheap, but it's unnecessary.
     commit: https://github.com/elastic/elasticsearch/commit/1cf694b
+    reverted: True
 location:
     file: 
         core/src/main/java/org/elasticsearch/env/ShardLockObtainFailedException.java

@@ -9,6 +9,7 @@ fix:
     commit message: >
         fixed a stream leak
     commit: https://github.com/jenkinsci/jenkins/commit/1c69856
+    reverted: True
 location:
     file: core/src/main/java/hudson/PluginWrapper.java
     method: public PluginWrapper(PluginManager owner, File archive) throws IOException

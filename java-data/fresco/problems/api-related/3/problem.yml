@@ -15,6 +15,7 @@ fix:
             Differential Revision: D6123899
             fbshipit-source-id: 29dcf418a14213e3ed8eb0bfcad7c5ae48fd7b58
     commit: https://github.com/facebook/fresco/commit/fbd926f
+    reverted: True
 location:
     file: 
         fbcore/src/main/java/com/facebook/common/internal/ImmutableMap.java

@@ -10,6 +10,7 @@ fix:
             Merge pull request #33 from stashuk/retention
             Change retention policy for JsonField from class to source
     commit: https://github.com/Instagram/ig-json-parser/commit/2262ede
+    reverted: True
 location:
     file: 
         common/src/main/java/com/instagram/common/json/annotation/JsonField.java

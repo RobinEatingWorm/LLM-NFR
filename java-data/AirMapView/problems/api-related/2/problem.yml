@@ -9,6 +9,7 @@ fix:
     commit message: >
         changed hashmap to sparsearray (#106)
     commit: https://github.com/airbnb/AirMapView/commit/6cd9c22
+    reverted: True
 location:
     file: library/src/main/java/com/airbnb/android/airmapview/WebViewMapFragment.java
     method: 

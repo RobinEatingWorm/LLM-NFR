@@ -66,11 +66,11 @@ public class OpenStreetMapTileProvider implements ServiceConnection,OpenStreetMa
 	
 	public pattern(final Context ctx,final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
-		ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE)) 
+		ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE);
 		
 		// ...
 		
-		mCtx.unbindService(this);
+		
 		
 	}
 }

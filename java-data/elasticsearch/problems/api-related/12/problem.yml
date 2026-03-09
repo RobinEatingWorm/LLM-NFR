@@ -16,6 +16,7 @@ fix:
             slowly until we hit the page size and don't waste too much memory for small query
             results.           
     commit: https://github.com/elastic/elasticsearch/commit/b275e91
+    reverted: True
 location:
     file: 
         src/main/java/org/elasticsearch/indices/cache/query/IndicesQueryCache.java

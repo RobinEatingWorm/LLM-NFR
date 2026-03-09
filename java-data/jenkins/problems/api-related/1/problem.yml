@@ -9,6 +9,7 @@ fix:
     commit message: >
         fixed a horrible horrible memory leak.
     commit: https://github.com/jenkinsci/jenkins/commit/fe21d5c
+    reverted: True
 location:
     file: remoting/src/main/java/hudson/remoting/Response.java
     method: protected void execute(Channel channel)

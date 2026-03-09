@@ -22,10 +22,7 @@ public class RoboSputnik extends Runner implements Filterable, Sortable {
 
     public RoboSputnik(final Class<?> clazz) throws InitializationError {
 
-        //Reuse classloader to decrease perm usage and speed up tests
-        if (classLoader == null) {
-            classLoader = createClassLoader();
+            final RobolectricClassLoader classLoader = createClassLoader();
             classLoader.delegateLoadingOf(ArrayUtil.class.getName());
-        }
     }
 }

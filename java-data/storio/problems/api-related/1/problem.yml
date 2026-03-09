@@ -9,6 +9,7 @@ fix:
     commit message: >
             Little performance optimization
     commit: https://github.com/pushtorefresh/storio/commit/228a961
+    reverted: True
 location:
     file: 
         storio-sqlite/src/main/java/com/pushtorefresh/storio/sqlite/operation/delete/PreparedDeleteCollectionOfObjects.java

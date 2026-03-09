@@ -10,20 +10,11 @@ import java.io.*;
 public class DeviceInfo {
 
     private static int getCoresFromFileInfo(String fileLocation) {
-        InputStream is = null;
         try {
-          is = new FileInputStream(fileLocation);
+          InputStream is = new FileInputStream(fileLocation);
           // ...
         } catch (IOException e) {
           // ...
-        } finally {
-          if (is != null) {
-            try {
-              is.close();
-            } catch (IOException e) {
-                // ...
-            }
-          }
-        }
+        } 
       }
 }

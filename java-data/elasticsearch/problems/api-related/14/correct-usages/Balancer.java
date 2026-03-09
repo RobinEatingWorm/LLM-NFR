@@ -49,7 +49,7 @@ public static class Balancer {
       private boolean tryRelocateShard(ModelNode minNode, ModelNode maxNode, String idx, float minCost) {
             
         final float delta = weight.weightShardAdded(this, minNode, idx) - weight.weightShardRemoved(this, maxNode, idx);
-        if (delta < minCost || (candidate != null && Float.compare(delta, minCost) == 0 && candidate.id() > shard.id())) {
+        if (delta < minCost || (candidate != null && delta == minCost && candidate.id() > shard.id())) {
             // ...
         }
       }

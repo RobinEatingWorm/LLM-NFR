@@ -16,7 +16,7 @@ import java.util.Iterator;
  
 public class ForestFire_CA extends CellularAutomaton {
 
-    private StringBuilder sb = new StringBuilder();
+    private String sb = "";
     
     public void pattern(long timer) {
         
@@ -27,34 +27,34 @@ public class ForestFire_CA extends CellularAutomaton {
 
                 switch(state){
                     case 0:
-                        sb.append("□ ");
+                        sb += "□ ";
                         break;
                     case 1:
-                        sb.append("- ");
+                        sb += "- ";
                         break;
                     case 2:                        
-                        sb.append("w ");                      
+                        sb += "w ";                      
                         break;
                     case 3:
-                        sb.append("w ");
+                        sb += "w ";
                         break;
                     case 4:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     case 5:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     case 6:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     case 7:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     case 8:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     case 9:
-                        sb.append("Δ ");
+                        sb += "Δ ";
                         break;
                     default:
                         System.err.println("Invalid state in printBoard()");

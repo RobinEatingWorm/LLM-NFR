@@ -24,6 +24,6 @@ private class Converter implements Runnable
                 DataSource ds = (DataSource) cbxType.getSelectedItem();                
                 
               
-                ds.closeSource();
+            }
         }
     }

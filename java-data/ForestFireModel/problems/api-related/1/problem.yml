@@ -9,6 +9,7 @@ fix:
     commit message: >
             StringBuilder instead of Concatenation (more efficient)
     commit: https://github.com/Cashney/ForestFireModel/commit/2172f37
+    reverted: True
 location:
     file: 
         src/ForestFireModell/ForestFire_CA.java

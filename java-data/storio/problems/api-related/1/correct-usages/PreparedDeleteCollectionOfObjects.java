@@ -27,7 +27,8 @@ public final class PreparedDeleteCollectionOfObjects<T> extends PreparedDelete<D
   
   public DeleteResults<T> executeAsBlocking() {
   
-      final Map<T, DeleteResult> results = new HashMap<T, DeleteResult>(objects.size());
+      //Assume the objects.size how many values will be put into the hashmap is known
+      final Map<T, DeleteResult> results = new HashMap<T, DeleteResult>();
       // ...
   }
 }

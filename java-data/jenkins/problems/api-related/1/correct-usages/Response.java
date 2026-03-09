@@ -10,6 +10,5 @@ final class Response<RSP,EXC extends Throwable> extends Command {
          if(req==null)
              return; // maybe aborted
          req.onCompleted(this);
-         channel.pendingCalls.remove(id);
      }
 }

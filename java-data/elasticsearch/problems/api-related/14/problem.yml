@@ -11,6 +11,7 @@ fix:
             Comparing primitive floats with '==' can be trappy because e.g. special handling
             of NaN values. It can be avoided by using Float.compare().
     commit: https://github.com/elastic/elasticsearch/commit/e60987b
+    reverted: True
 location:
     file: 
         server/src/main/java/org/elasticsearch/cluster/routing/allocation/allocator/BalancedShardsAllocator.java

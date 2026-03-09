@@ -38,13 +38,8 @@ public class StoreDirectory extends Directory implements ForceSyncDirectory {
       
       IndexInput in = metaData.directory().openInput(name, context);
       boolean success = false;
-      try {
-          // ...
-      } finally {
-          if (!success) {
-              IOUtils.closeWhileHandlingException(in);
-          }
-      }
+      
+        // ...
       return in;
   }
 

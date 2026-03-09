@@ -17,6 +17,7 @@ fix:
             specification. Create RobolectricClassLoader as static field,
             initialize it only once reuse it among RoboSpecifications.
     commit: https://github.com/robospock/RoboSpock/commit/b65057f
+    reverted: True
 location:
     file: 
         src/main/java/pl/polidea/robospock/RoboSputnik.java

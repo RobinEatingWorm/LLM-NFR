@@ -35,11 +35,6 @@ public final class PluginWrapper {
 
                         if(isLinked) {
                             BufferedReader archiveReader = new BufferedReader(new FileReader(archive));
-                            try {
-                                // ...
-                            } finally {
-                                archiveReader.close();
-                            }
                         }
                     }
         }

@@ -35,8 +35,6 @@ public final class Thumbnailator{
     
     // ...
     
-    sourceImage.flush();
-  
   }
 
 }
