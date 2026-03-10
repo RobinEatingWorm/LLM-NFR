@@ -10,6 +10,7 @@ fix:
             Use memset for initializing memory block to 0 instead of looping over matrix
             dimensions (resulted in 3x speedup)
     commit: https://github.com/Theano/Theano/commit/01a46c1
+    reverted: True
 location:
     file: 
         theano/sparse/basic.py

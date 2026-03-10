@@ -7,4 +7,4 @@ from django.conf import settings
 
 @register.filter
 def is_checkbox(field):
-    return isinstance(field.field.widget, forms.CheckboxInput)
+    return field.field.widget.__class__.__name__.lower() == "checkboxinput"

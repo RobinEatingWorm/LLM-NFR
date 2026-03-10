@@ -10,6 +10,7 @@ fix:
             perf: Use `callable` instead of testing for `__call__` attribute.
             Should be faster, more elegant. See http://stackoverflow.com/questions/16388059/using-callablex-vs-hasattrx-call
     commit: https://github.com/falconry/falcon/commit/7370594
+    reverted: True
 location:
     file: 
         falcon/api_helpers.py

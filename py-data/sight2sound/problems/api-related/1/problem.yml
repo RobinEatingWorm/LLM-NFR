@@ -9,6 +9,7 @@ fix:
     commit message: >
             list comprehension instead of append
     commit: https://github.com/chenblair/sight2sound/commit/5bba7e2
+    reverted: True
 location:
     file: 
         main.py

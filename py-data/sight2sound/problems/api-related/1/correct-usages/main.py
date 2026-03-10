@@ -11,7 +11,7 @@ def main():
     while True:
         img = Image.open(input_file).convert("L")
         pixels = img.load()
-        output = [
-                pixels[hc.d2xy(math.log(x * y, 2), i)]
-                for i in range(x*x)
-                ]
+        output = []
+        for i in range(0, x ** 2):
+            hilbert = hc.d2xy(math.log(x * y, 2), i)
+            output.append(pixels[hilbert])

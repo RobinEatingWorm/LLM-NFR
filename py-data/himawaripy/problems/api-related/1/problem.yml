@@ -10,6 +10,7 @@ fix:
             Merge pull request #12 from predator5047/master
             Now downloading pictures in parallel
     commit: https://github.com/boramalper/himawaripy/commit/3ee8726
+    reverted: True
 location:
     file: 
         himawaripy.py

@@ -14,6 +14,7 @@ fix:
            way as the parent class.
            Patch for issue #176
     commit: https://github.com/django-crispy-forms/django-crispy-forms/commit/a41edfa
+    reverted: True
 location:
     file: 
         crispy_forms/templatetags/crispy_forms_field.py

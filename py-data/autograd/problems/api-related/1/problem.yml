@@ -10,6 +10,7 @@ fix:
             Merge pull request #136 from davidweichiang/master
             Use a[idx] += b instead of numpy.add.at(a, idx, b)
     commit: https://github.com/HIPS/autograd/commit/6492359
+    reverted: True
 location:
     file: 
         autograd/numpy/numpy_extra.py

@@ -13,7 +13,7 @@ class RethinkInterface:
         # ...
         
         self.logger.send(["dbprocess",
-                "".join(("There is no job with an id of ", output_data[0])),
+                "There is no job with an id of " + output_data[0],
                 30,
                 time()
             ])

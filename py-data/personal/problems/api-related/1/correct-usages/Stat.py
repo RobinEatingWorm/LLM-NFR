@@ -7,5 +7,5 @@ class Stat(object):
     numRounds = 14
     resultSet = [Stat(0, 0, 0)] * numRounds
   
-    averageStats = [x / float(numGames) for x in resultSet]
+    aaverageStats = map(lambda x: x/float(numGames), resultSet)
     

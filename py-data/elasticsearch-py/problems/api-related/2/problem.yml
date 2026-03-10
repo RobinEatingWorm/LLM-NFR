@@ -9,6 +9,7 @@ fix:
     commit message: >
             Switch to urllib3 for more performance
     commit: https://github.com/elastic/elasticsearch-py/commit/d72b156
+    reverted: True
 location:
     file: 
         elasticsearch/connection.py

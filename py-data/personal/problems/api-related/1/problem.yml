@@ -9,6 +9,7 @@ fix:
     commit message: >
             use a list comprehension instead of a lambda map for log sessionfinish
     commit: https://github.com/salmonroll/personal/commit/2a16eeb
+    reverted: True
 location:
     file: 
         agricola/veterinarian.py

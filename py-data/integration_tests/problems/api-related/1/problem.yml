@@ -9,6 +9,7 @@ fix:
     commit message: >
             use a list comprehension instead of a lambda map for log sessionfinish
     commit: https://github.com/ManageIQ/integration_tests/commit/0efc66b
+    reverted: True
 location:
     file: 
         fixtures/log.py

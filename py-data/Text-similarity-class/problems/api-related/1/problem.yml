@@ -9,6 +9,7 @@ fix:
     commit message: >
             list comprehension instead of for loops
     commit: https://github.com/Chetan0403/Text-similarity-class/commit/2d38d71
+    reverted: True
 location:
     file: 
         Similarity-class.py

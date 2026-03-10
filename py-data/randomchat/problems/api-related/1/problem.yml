@@ -9,6 +9,7 @@ fix:
     commit message: >
             Changed free_space logic. Using list comprehension instead of looping through the list traditionally
     commit: https://github.com/matheus-crivellari/randomchat/commit/0eecc3c
+    reverted: True
 location:
     file: 
         randomchat/chat/views.py

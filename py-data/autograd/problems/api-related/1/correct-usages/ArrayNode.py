@@ -13,5 +13,5 @@ class ArrayNode(Node):
       new_array = type(new_array_node(arrays[0], [])).zeros_like(arrays[0]) 
       for array in arrays:
           if isinstance(array, SparseArray):
-                  new_array[array.idx] += array.val
+                  np.add.at(new_array, array.idx, array.val)
            

@@ -9,6 +9,7 @@ fix:
     commit message: >
             replace concat with join
     commit: https://github.com/ramrod-project/backend-interpreter/commit/86cd3bd
+    reverted: True
 location:
     file: 
         plugin_interpreter/src/rethink_interface.py

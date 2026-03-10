@@ -31,7 +31,13 @@ class StructuredDotCSC(gof.Op):
             dtype_%(z)s*     __restrict__ Dz   = (dtype_%(z)s*)%(z)s->data;
             
            //clear the output array
-            memset(Dz, 0, M*N*sizeof(dtype_%(z)s));
+            for (npy_intp m = 0; m < M; ++m)
+            {
+                for (npy_intp n = 0; n < N; ++n)
+                {
+                    Dz[m*Szm + n*Szn] = 0.0;
+                }
+            }
  
         }
   
