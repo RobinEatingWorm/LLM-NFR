@@ -8,6 +8,7 @@ fix:
     description: reduced memory usage by removing duplicates from a map 
     commit message: Merge pull request \#444 from jrodbx/fix-oom Lower memory usage when parsing heap dumps on M
     commit: https://github.com/square/leakcanary/commit/0163dfa
+    reverted: True
 location:
   file: leakcanary-analyzer/src/main/java/com/squareup/leakcanary/HeapAnalyzer.java
   method: public AnalysisResult checkForLeak(File heapDumpFile, String referenceKey)

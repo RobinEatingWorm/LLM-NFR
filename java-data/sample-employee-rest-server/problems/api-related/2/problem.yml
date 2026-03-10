@@ -9,6 +9,7 @@ fix:
     commit message: >
             Make Employee.id read-only and stop employees from being updated via POST endpoint
     commit: https://github.com/derrikcurran/sample-employee-rest-server/commit/c17722d
+    reverted: True
 location:
     file: 
         src/main/java/com/derrikcurran/sample/employeerestserver/employee/Employee.java

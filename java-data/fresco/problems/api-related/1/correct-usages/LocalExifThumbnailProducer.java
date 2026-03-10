@@ -30,12 +30,7 @@ public class LocalExifThumbnailProducer implements ThumbnailProducer<EncodedImag
 
   private EncodedImage buildEncodedImage(PooledByteBuffer imageBytes,ExifInterface exifInterface) {
     
-    CloseableReference<PooledByteBuffer> closeableByteBuffer = CloseableReference.of(imageBytes);
-    try {
-      encodedImage = new EncodedImage(closeableByteBuffer);
-    } finally {
-      CloseableReference.closeSafely(closeableByteBuffer);
-    }
+    EncodedImage encodedImage = new EncodedImage(CloseableReference.of(imageBytes));
     return encodedImage;
   }
 }

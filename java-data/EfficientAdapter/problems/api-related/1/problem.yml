@@ -10,6 +10,7 @@ fix:
         Merge pull request #13 from preplay/master
         Methods to clear views cached on ViewHolder        
     commit: https://github.com/StanKocken/EfficientAdapter/commit/82197a2
+    reverted: True
 location:
     file: 
         library/src/main/java/com/skocken/efficientadapter/lib/viewholder/AbsViewHolder.java

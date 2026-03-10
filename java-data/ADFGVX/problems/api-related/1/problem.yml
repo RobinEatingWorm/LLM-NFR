@@ -9,6 +9,7 @@ fix:
     commit message: >
             Refactoring getIndicePermutation use StringBuilder instead of String
     commit: https://github.com/valentindubois/ADFGVX/commit/6c931fe
+    reverted: True
 location:
     file: 
         src/main/java/ch/hearc/st/app/Utils.java

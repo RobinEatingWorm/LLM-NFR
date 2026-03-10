@@ -5,15 +5,15 @@ import java.util.ArrayList;
 public class Utils{
 
   private static String pattern(int[] tab) {
-      StringBuilder perm = new StringBuilder();
+      String perm = "";
       int nbiter = tab.length;
 
       for (int m = 0; m < nbiter; m++) {
-        perm.append(tab[m]);
+        perm += tab[m];
         if (m < nbiter - 1) {
-          perm.append(",");
+          perm += ",";
         }
       }
-      return perm.toString();
+      return perm;
     }
 }

@@ -12,8 +12,6 @@ import com.squareup.haha.perflib.Snapshot;
 import com.squareup.haha.perflib.Type;
 import com.squareup.haha.perflib.io.HprofBuffer;
 import com.squareup.haha.perflib.io.MemoryMappedFileBuffer;
-import com.squareup.haha.trove.THashMap;
-import com.squareup.haha.trove.TObjectProcedure;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,7 +46,6 @@ public final class HeapAnalyzer {
         HprofBuffer buffer = new MemoryMappedFileBuffer(heapDumpFile);
         HprofParser parser = new HprofParser(buffer);
         Snapshot snapshot = parser.parse();
-        deduplicateGcRoots(snapshot);
 
         Instance leakingRef = findLeakingReference(referenceKey, snapshot);
         return findLeakTrace(analysisStartNanoTime, snapshot, leakingRef);

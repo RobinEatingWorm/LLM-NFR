@@ -11,9 +11,9 @@ import java.util.List;
 @IgnoreExtraProperties
 public class Question {
 
-  private long mMarks;
+  private Long mMarks;
   
-  public long getMarks() {
+  public Long getMarks() {
         return mMarks;
     }
 }

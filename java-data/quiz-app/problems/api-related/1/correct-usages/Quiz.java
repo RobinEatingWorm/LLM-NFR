@@ -10,9 +10,9 @@ import java.util.List;
 @IgnoreExtraProperties
 public class Quiz {
   
-  private double mRating;
+  private Double mRating;
   
-  public double getRating() {
+  public Double getRating() {
         return mRating;
     }
 

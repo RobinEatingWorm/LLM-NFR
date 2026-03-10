@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class NotificationPrefs {
 
-    private boolean mCommentNotifs;
+    private Boolean mCommentNotifs;
     
-    public boolean getCommentNotifs() {
+    public Boolean getCommentNotifs() {
          return mCommentNotifs;	         
      }	
 }

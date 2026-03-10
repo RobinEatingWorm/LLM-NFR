@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Table(name = "employees")
 public class Employee {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
     
 }

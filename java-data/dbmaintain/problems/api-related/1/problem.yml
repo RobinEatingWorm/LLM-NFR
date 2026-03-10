@@ -9,6 +9,7 @@ fix:
     commit message: >
             Use a StringBuilder instead of concatenation in a loop
     commit: https://github.com/DbMaintain/dbmaintain/commit/4974e9c
+    reverted: True
 location:
     file: 
         dbmaintain/src/main/java/org/dbmaintain/config/ConfigUtils.java

@@ -10,6 +10,4 @@ public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder {
   
     private void pattern(int parentId, int id, View viewRetrieve) {
         storeView(parentId, id, viewRetrieve);
-      
-        clearViewCached(parentId, id);
 }

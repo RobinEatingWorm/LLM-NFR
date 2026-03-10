@@ -27,11 +27,5 @@ public class BillingService extends Service implements ServiceConnection {
 		}
 		
 		// ...
-		
-		if (mService != null) {
-			try {
-				unbindService(this);
-			} // ...
-		}
 	}
 }

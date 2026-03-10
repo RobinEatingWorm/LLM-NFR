@@ -9,6 +9,7 @@ fix:
     commit message: >
             Use a StringBuilder instead of concatenating Strings
     commit: https://github.com/MarcusWolschon/osmeditor4android/commit/74fe7ad
+    reverted: True
 location:
     file: 
         src/main/java/de/blau/android/tasks/OsmoseBug.java

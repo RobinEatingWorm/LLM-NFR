@@ -9,6 +9,7 @@ fix:
     commit message: >
             Unbind android market service on server destroy to don't leak it.
     commit: https://github.com/robotmedia/AndroidBillingLibrary/commit/4098727
+    reverted: True
 location:
     file: 
         AndroidBillingLibrary/src/net/robotmedia/billing/BillingService.java

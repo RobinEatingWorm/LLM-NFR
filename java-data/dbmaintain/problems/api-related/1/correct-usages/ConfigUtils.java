@@ -11,12 +11,12 @@ public class ConfigUtils {
         String propKey = type.getName() + "." + propertyName;
 
         if (implementationDiscriminatorValues != null) {
-            StringBuilder implementationSpecificPropKey = new StringBuilder(propKey);
+            String implementationSpecificPropKey = propKey;
             for (String implementationDiscriminatorValue : implementationDiscriminatorValues) {
-                implementationSpecificPropKey.append('.').append(implementationDiscriminatorValue);
+                implementationSpecificPropKey += '.' + implementationDiscriminatorValue;
             }
-            if (configuration.containsKey(implementationSpecificPropKey.toString())) {
-                return PropertyUtils.getString(implementationSpecificPropKey.toString(), configuration);
+            if (configuration.containsKey(implementationSpecificPropKey)) {
+                return PropertyUtils.getString(implementationSpecificPropKey, configuration);
             }
         }
     }

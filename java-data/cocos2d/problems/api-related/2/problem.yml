@@ -9,6 +9,7 @@ fix:
     commit message: >
             memory leak fixed in CCLabel
     commit: https://github.com/ZhouWeikuan/cocos2d/commit/61f6864
+    reverted: True
 location:
     file: 
         cocos2d-android/src/org/cocos2d/nodes/CCLabel.java
