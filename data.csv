@@ -1,0 +1,3169 @@
+ID,tag,fixed,usages
+Catacomb-Snatch_1,resource management,True,"package com.mojang.mojam.downloader;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.Date;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
+
+public class ChannelDownloader implements IDownloader {
+
+	@Override
+	public void downloadTo(String turl, String dest) throws IOException {
+
+		ReadableByteChannel rbc = Channels.newChannel(is);
+		
+		FileOutputStream fos = new FileOutputStream(dest);
+		fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+
+		fos.close();
+		return;
+	}
+}
+"
+Catacomb-Snatch_2,"memory, performance",False,"
+package com.mojang.mojam;
+
+import java.util.ArrayList;
+import org.lwjgl.input.Controller;
+import org.lwjgl.input.Controllers;
+
+import com.mojang.mojam.Keys.Key;
+import com.mojang.mojam.gui.AJoyBindingsMenu;
+import com.mojang.mojam.gui.JoyBindingsMenu;
+
+public class JoypadHandler {
+    public Controller controller;
+    public ArrayList<Object> butaxes;
+    
+    public int buttonCount;
+    public int axisCount;
+    
+    public JoypadHandler(int index) {
+      controller = Controllers.getController(index);
+
+      buttonCount = controller.getButtonCount();
+
+      axisCount = controller.getAxisCount();
+
+      // ...
+
+      }
+
+}
+"
+AndroidBillingLibrary_1,memory,False,"package net.robotmedia.billing;
+
+import java.util.LinkedList;
+
+import static net.robotmedia.billing.BillingRequest.*;
+
+import net.robotmedia.billing.utils.Compatibility;
+
+import com.android.vending.billing.IMarketBillingService;
+
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
+
+public class BillingService extends Service implements ServiceConnection {
+	private static IMarketBillingService mService;
+
+	public void pattern() {
+		try {
+			bindService(new Intent(ACTION_MARKET_BILLING_SERVICE), this, Context.BIND_AUTO_CREATE);
+		}
+		
+		// ...
+	}
+}
+"
+fresco_2,resource management,True,"package com.facebook.imagepipeline.producers;
+
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import android.util.Pair;
+
+import com.facebook.common.internal.Preconditions;
+import com.facebook.common.internal.Sets;
+import com.facebook.common.internal.VisibleForTesting;
+import com.facebook.imagepipeline.common.Priority;
+
+public abstract class MultiplexProducer<K, T extends Closeable> implements Producer<T> {
+
+   public void onNextResult(final ForwardingConsumer consumer,final T closeableObject,final boolean isFinal) {
+      Iterator<Pair<Consumer<T>, ProducerContext>> iterator;
+
+      while (iterator.hasNext()) {
+        Pair<Consumer<T>, ProducerContext> pair = iterator.next();
+        synchronized (pair) {
+          pair.first.onNewResult(cloneOrNull(closeableObject), isFinal);
+        }
+      }
+      closeSafely(closeableObject);
+    }
+}
+"
+fresco_1,resource management,False,"package com.facebook.imagepipeline.producers;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.Executor;
+
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Pair;
+
+import com.facebook.common.internal.ImmutableMap;
+import com.facebook.common.internal.VisibleForTesting;
+import com.facebook.common.references.CloseableReference;
+import com.facebook.common.util.UriUtil;
+import com.facebook.imageformat.ImageFormat;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.image.EncodedImage;
+import com.facebook.imagepipeline.memory.PooledByteBuffer;
+import com.facebook.imagepipeline.memory.PooledByteBufferFactory;
+import com.facebook.imagepipeline.memory.PooledByteBufferInputStream;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imageutils.BitmapUtil;
+import com.facebook.imageutils.JfifUtil;
+
+public class LocalExifThumbnailProducer implements ThumbnailProducer<EncodedImage> {
+
+  private EncodedImage buildEncodedImage(PooledByteBuffer imageBytes,ExifInterface exifInterface) {
+    
+    EncodedImage encodedImage = new EncodedImage(CloseableReference.of(imageBytes));
+    return encodedImage;
+  }
+}
+"
+fresco_3,"memory, performance",False,"package com.facebook.common.internal;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ImmutableMap<K, V> extends HashMap<K, V> {
+
+  public static <K, V> Map<K, V> of(
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
+    Map<K, V> map = new HashMap<>();
+    map.put(k1, v1);
+    map.put(k2, v2);
+    map.put(k3, v3);
+    map.put(k4, v4);
+    map.put(k5, v5);
+    map.put(k6, v6);
+    return Collections.unmodifiableMap(map);
+  }
+ }
+"
+xslt-library_2,performance,True,"package com.offerready.xslt;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import com.databasesandlife.util.Timer;
+import lombok.val;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
+public class HtmlBodyExtractor {
+  
+  protected void extractElements(@Nonnull StringBuilder result, @Nonnull String input, @Nonnull List<Range> ranges,
+        @Nonnull String start, @CheckForNull String endOfStartOrNull, @Nonnull String end) {
+        
+        int startIdx = -1;
+        val ourResult = new StringBuilder();
+    
+        while ((startIdx = input.indexOf(start, startIdx+1)) >= 0) {
+            Range range = (endOfStartOrNull == null)
+                ? new Range(startIdx, idxOfEndTag + end.length())
+                : new Range(input.indexOf(endOfStartOrNull, startIdx) + endOfStartOrNull.length(), idxOfEndTag);
+            ourResult.append(ignoreScripts(input.substring(range.startIncl, range.endExcl)));
+        }
+        ourResult.append(""\n"");
+    }
+  }
+"
+xslt-library_1,performance,True,"package com.offerready.xslt.config;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import java.io.Serializable;
+import java.util.*;
+
+@SuppressWarnings(""serial"")
+public class PrivilegeRestriction implements Serializable {
+  
+  public static @Nonnull <P extends HasPrivilegeRestriction> List<P> restrict(@Nonnull Collection<P> input, @Nonnull Privilege privilege) {
+        List<P> result = new ArrayList<P>(input.size());
+        for (P candidate : input)
+            if (candidate.getPrivilegeRestriction().isAllowed(privilege))
+                result.add(candidate);
+        return result;
+    }
+    
+  }
+"
+storio_1,"memory, performance",False,"package com.pushtorefresh.storio.sqlite.operation.delete;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
+
+import com.pushtorefresh.storio.operation.internal.OnSubscribeExecuteAsBlocking;
+import com.pushtorefresh.storio.sqlite.Changes;
+import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+
+import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import rx.Observable;
+import rx.schedulers.Schedulers;
+
+import static com.pushtorefresh.storio.internal.Environment.throwExceptionIfRxJavaIsNotAvailable;
+
+public final class PreparedDeleteCollectionOfObjects<T> extends PreparedDelete<DeleteResults<T>> {
+  
+  public DeleteResults<T> executeAsBlocking() {
+  
+      //Assume the objects.size how many values will be put into the hashmap is known
+      final Map<T, DeleteResult> results = new HashMap<T, DeleteResult>();
+      // ...
+  }
+}
+"
+selendroid_1,performance,True,"package io.selendroid.server.model;
+
+import io.selendroid.ServerInstrumentation;
+import io.selendroid.android.AndroidWait;
+import io.selendroid.android.InstrumentedKeySender;
+import io.selendroid.android.KeySender;
+import io.selendroid.android.ViewHierarchyAnalyzer;
+import io.selendroid.android.WindowType;
+import io.selendroid.android.internal.Dimension;
+import io.selendroid.exceptions.NoSuchElementException;
+import io.selendroid.exceptions.SelendroidException;
+import io.selendroid.server.Session;
+import io.selendroid.server.model.internal.AbstractNativeElementContext;
+import io.selendroid.server.model.internal.AbstractWebElementContext;
+import io.selendroid.server.model.internal.execute_native.FindElementByAndroidTag;
+import io.selendroid.server.model.internal.execute_native.FindRId;
+import io.selendroid.server.model.internal.execute_native.GetL10nKeyTranslation;
+import io.selendroid.server.model.internal.execute_native.InvokeMenuAction;
+import io.selendroid.server.model.internal.execute_native.IsElementDisplayedInViewport;
+import io.selendroid.server.model.internal.execute_native.NativeExecuteScript;
+import io.selendroid.server.model.js.AndroidAtoms;
+import io.selendroid.util.Preconditions;
+import io.selendroid.util.SelendroidLogger;
+
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.res.Resources.Theme;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.view.Display;
+import android.view.View;
+import android.webkit.WebView;
+
+
+public class DefaultSelendroidDriver implements SelendroidDriver {
+
+  public String initializeSession(JSONObject desiredCapabilities) {
+  
+    Random random = new Random();
+    this.session = new Session(desiredCapabilities,
+        new UUID(random.nextLong(), random.nextLong()).toString());
+    return session.getSessionId();
+  }
+
+
+
+
+}
+"
+ForestFireModel_1,performance,False,"package ForestFireModell;
+
+import automaton.*;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Iterator;
+
+/**
+ * @author Matthias Willenbrink;
+ */
+ 
+public class ForestFire_CA extends CellularAutomaton {
+
+    private String sb = """";
+    
+    public void pattern(long timer) {
+        
+        for (int y = 0; y <= yDim - 1; y++) {
+            for (int x = 0; x <= xDim - 1; x++) {
+                cp = ((ForestFire_Cell) gac[xDim * y + x]).getCellProperty();
+                state = (int) cp.getValue();
+
+                switch(state){
+                    case 0:
+                        sb += ""□ "";
+                        break;
+                    case 1:
+                        sb += ""- "";
+                        break;
+                    case 2:                        
+                        sb += ""w "";                      
+                        break;
+                    case 3:
+                        sb += ""w "";
+                        break;
+                    case 4:
+                        sb += ""Δ "";
+                        break;
+                    case 5:
+                        sb += ""Δ "";
+                        break;
+                    case 6:
+                        sb += ""Δ "";
+                        break;
+                    case 7:
+                        sb += ""Δ "";
+                        break;
+                    case 8:
+                        sb += ""Δ "";
+                        break;
+                    case 9:
+                        sb += ""Δ "";
+                        break;
+                    default:
+                        System.err.println(""Invalid state in printBoard()"");
+                        break;
+                }
+            }
+
+            sb.append(""\n"");
+        }
+
+    }
+}
+"
+subethasmtp_3,memory,True,"package org.subethamail.smtp.server;
+
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
+
+import org.apache.mina.common.ByteBuffer;
+import org.apache.mina.common.DefaultIoFilterChainBuilder;
+import org.apache.mina.common.SimpleByteBufferAllocator;
+import org.apache.mina.common.ThreadModel;
+import org.apache.mina.filter.LoggingFilter;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.executor.ExecutorFilter;
+import org.apache.mina.integration.jmx.IoServiceManager;
+import org.apache.mina.transport.socket.nio.SocketAcceptor;
+import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.subethamail.smtp.MessageHandlerFactory;
+import org.subethamail.smtp.MessageListener;
+import org.subethamail.smtp.Version;
+
+
+@SuppressWarnings(""serial"")
+public class SMTPServer
+{
+  private ExecutorService executor;
+	private ExecutorService acceptorThreadPool;
+
+  public synchronized void stop()
+	{
+    //...
+    
+    executor.shutdown();
+    acceptorThreadPool.shutdown();
+
+	}
+}
+"
+subethasmtp_2,resource management,True,"package org.subethamail.smtp.server;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+
+import javax.mail.util.SharedByteArrayInputStream;
+
+import org.apache.mina.common.BufferDataException;
+import org.apache.mina.common.ByteBuffer;
+import org.apache.mina.common.IoSession;
+import org.apache.mina.filter.codec.ProtocolDecoder;
+import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.subethamail.smtp.server.io.SharedTmpFileInputStream;
+
+public class SMTPCodecDecoder implements ProtocolDecoder 
+{
+  private class DecoderContext 
+    {
+        protected void reset() throws IOException 
+        {
+            if (thresholdReached)
+            {
+            	thresholdReached = false;
+            	compactBuffer();
+            	closeOutputStream();
+            }
+        }
+    }
+}
+"
+subethasmtp_1,resource management,True,"package org.subethamail.smtp.server.io;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class DeferredFileOutputStream extends ThresholdingOutputStream
+{
+  @Override
+	protected void thresholdReached(int current, int predicted) throws IOException
+	{
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) this.output;
+		baos.writeTo(this.outFileStream);
+		baos.flush();
+		baos.close();
+	}
+}
+"
+liferay-portal_1,"memory, performance",True,"package com.liferay.folder.apio.internal.architect.resource;
+
+import static com.liferay.portal.apio.idempotent.Idempotent.idempotent;
+
+import com.liferay.apio.architect.pagination.PageItems;
+import com.liferay.apio.architect.pagination.Pagination;
+import com.liferay.apio.architect.representor.Representor;
+import com.liferay.apio.architect.resource.NestedCollectionResource;
+import com.liferay.apio.architect.routes.ItemRoutes;
+import com.liferay.apio.architect.routes.NestedCollectionRoutes;
+import com.liferay.document.library.kernel.service.DLAppService;
+import com.liferay.folder.apio.architect.identifier.FolderIdentifier;
+import com.liferay.folder.apio.architect.identifier.RootFolderIdentifier;
+import com.liferay.folder.apio.internal.architect.form.FolderForm;
+import com.liferay.portal.apio.permission.HasPermission;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+@Component(immediate = true)
+public class FolderNestedCollectionResource
+	implements NestedCollectionResource
+		<Folder, Long, FolderIdentifier, Long, RootFolderIdentifier> {
+    
+    private Folder _addFolder(long groupId, FolderForm folderForm)
+		throws PortalException {
+
+		long parentFolderId = 0;
+
+		return _dlAppService.addFolder(
+			groupId, parentFolderId, folderForm.getName(),
+			folderForm.getDescription(), new ServiceContext());
+	}
+
+}
+"
+dbmaintain_1,performance,False,"package org.dbmaintain.config;
+
+import org.dbmaintain.util.DbMaintainException;
+import org.dbmaintain.util.ReflectionUtils;
+
+import java.util.Properties;
+
+public class ConfigUtils {
+  
+  private static String getConfiguredClassName(Class<?> type, Properties configuration, String propertyName, String... implementationDiscriminatorValues) {
+        String propKey = type.getName() + ""."" + propertyName;
+
+        if (implementationDiscriminatorValues != null) {
+            String implementationSpecificPropKey = propKey;
+            for (String implementationDiscriminatorValue : implementationDiscriminatorValues) {
+                implementationSpecificPropKey += '.' + implementationDiscriminatorValue;
+            }
+            if (configuration.containsKey(implementationSpecificPropKey)) {
+                return PropertyUtils.getString(implementationSpecificPropKey, configuration);
+            }
+        }
+    }
+    
+  }
+"
+AirMapView_2,memory,False,"package com.airbnb.android.airmapview;
+
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+
+import com.airbnb.android.airmapview.listeners.InfoWindowCreator;
+import com.airbnb.android.airmapview.listeners.OnCameraChangeListener;
+import com.airbnb.android.airmapview.listeners.OnInfoWindowClickListener;
+import com.airbnb.android.airmapview.listeners.OnLatLngScreenLocationCallback;
+import com.airbnb.android.airmapview.listeners.OnMapBoundsCallback;
+import com.airbnb.android.airmapview.listeners.OnMapClickListener;
+import com.airbnb.android.airmapview.listeners.OnMapLoadedListener;
+import com.airbnb.android.airmapview.listeners.OnMapMarkerClickListener;
+import com.airbnb.android.airmapview.listeners.OnMapMarkerDragListener;
+import com.airbnb.android.airmapview.listeners.OnSnapshotReadyListener;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+public abstract class WebViewMapFragment extends Fragment implements AirMapInterface {
+  
+  private final Map<Long, AirMapMarker<?>> markers = new HashMap<>();
+  
+  // ...
+
+}
+"
+AirMapView_1,security,True,"package com.airbnb.android.airmapview;
+
+import android.annotation.SuppressLint;
+import android.graphics.Point;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+
+import com.airbnb.android.airmapview.listeners.InfoWindowCreator;
+import com.airbnb.android.airmapview.listeners.OnCameraChangeListener;
+import com.airbnb.android.airmapview.listeners.OnInfoWindowClickListener;
+import com.airbnb.android.airmapview.listeners.OnLatLngScreenLocationCallback;
+import com.airbnb.android.airmapview.listeners.OnMapBoundsCallback;
+import com.airbnb.android.airmapview.listeners.OnMapClickListener;
+import com.airbnb.android.airmapview.listeners.OnMapLoadedListener;
+import com.airbnb.android.airmapview.listeners.OnMapMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Locale;
+
+public abstract class WebViewMapFragment extends Fragment implements AirMapInterface {
+
+  @SuppressLint({ ""SetJavaScriptEnabled"", ""AddJavascriptInterface"" })
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    
+    View view = inflater.inflate(R.layout.fragment_webview, container, false);
+    webView = (WebView) view.findViewById(R.id.webview);
+    WebSettings webViewSettings = webView.getSettings();
+    
+    webViewSettings.setAllowFileAccess(false);
+    webViewSettings.setAllowContentAccess(false);
+    
+    return view;
+  }
+
+}
+"
+cocos2d_2,memory,False,"
+package org.cocos2d.nodes;
+
+import org.cocos2d.opengl.CCTexture2D;
+import org.cocos2d.opengl.GLResourceHelper;
+import org.cocos2d.protocols.CCLabelProtocol;
+import org.cocos2d.types.CGRect;
+import org.cocos2d.types.CGSize;
+
+public class CCLabel extends CCSprite implements CCLabelProtocol {
+    
+    texture.setLoader(new GLResourceHelper.GLResourceLoader() {
+    		@Override
+    		public void load(GLResourceHelper.Resource res) {
+    	    	if (CGSize.equalToSize(_dimensions, CGSize.zero())) {
+    	    		((CCTexture2D)res).initWithText(string, _fontName, _fontSize);
+    	    	} else {
+    	    		((CCTexture2D)res).initWithText(string, _dimensions, _alignment, _fontName, _fontSize);
+    	    	}
+    		    CGSize size = texture_.getContentSize();
+    		    setTextureRect(CGRect.make(0, 0, size.width, size.height));
+    		}
+    	});
+
+}
+"
+cocos2d_3,memory,True,"package org.cocos2d.particlesystem;
+
+import java.lang.ref.WeakReference;
+import java.nio.ShortBuffer;
+
+import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL11;
+
+import org.cocos2d.config.ccConfig;
+import org.cocos2d.config.ccMacros;
+import org.cocos2d.nodes.CCDirector;
+import org.cocos2d.nodes.CCSpriteFrame;
+import org.cocos2d.opengl.CCTexture2D;
+import org.cocos2d.opengl.GLResourceHelper;
+import org.cocos2d.opengl.GLResourceHelper.Resource;
+import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGRect;
+import org.cocos2d.types.ccBlendFunc;
+import org.cocos2d.utils.BufferProvider;
+import org.cocos2d.utils.FastFloatBuffer;
+
+public class CCQuadParticleSystem extends CCParticleSystem implements Resource {
+
+    private static class QuadParticleLoader implements GLResourceHelper.GLResourceLoader {
+
+		private WeakReference<CCQuadParticleSystem> weakRef;
+    	
+    public QuadParticleLoader(CCQuadParticleSystem holder) {
+    		weakRef = new WeakReference<CCQuadParticleSystem>(holder);
+        }
+      
+      // ...
+   }
+}
+"
+catalina_1,performance,False,"package org.apache.catalina.util;
+
+
+import java.io.Serializable;
+import java.net.MalformedURLException;
+
+public final class URL implements Serializable {
+        
+        public String toString() {
+
+                StringBuffer sb = new StringBuffer(""URL["");
+                sb.append(""authority="");
+                sb.append(authority);
+                sb.append("", file="");
+                sb.append(file);
+                sb.append("", host="");
+                sb.append(host);
+                sb.append("", port="");
+                sb.append(port);
+                sb.append("", protocol="");
+                sb.append(protocol);
+                sb.append("", query="");
+                sb.append(query);
+                sb.append("", ref="");
+                sb.append(ref);
+                sb.append("", userInfo="");
+                sb.append(userInfo);
+                sb.append(""]"");
+                return (sb.toString());
+            }
+
+}
+"
+thumbnailator_1,memory,True,"package net.coobird.thumbnailator.tasks.io;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
+import net.coobird.thumbnailator.util.BufferedImages;
+import net.coobird.thumbnailator.util.ThumbnailatorUtils;
+
+
+public class FileImageSink extends AbstractImageSink<File>
+{
+  public void write(BufferedImage img) throws IOException
+	{
+		
+		String formatName = outputFormat;
+		
+		Iterator<ImageWriter> writers = 
+			ImageIO.getImageWritersByFormatName(formatName);
+		
+		ImageWriter writer = writers.next();
+		
+		ImageWriteParam writeParam = writer.getDefaultWriteParam();
+
+		ImageOutputStream ios;
+		FileOutputStream fos;
+		fos = new FileOutputStream(destinationFile);
+		ios = ImageIO.createImageOutputStream(fos);
+		
+		writer.setOutput(ios);
+		writer.write(null, new IIOImage(img, null, null), writeParam);
+
+		writer.dispose();
+		
+		ios.close();
+		fos.close();
+	}
+}
+
+}
+"
+thumbnailator_2,memory,False,"package net.coobird.thumbnailator;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.imageio.ImageIO;
+
+import net.coobird.thumbnailator.builders.BufferedImageBuilder;
+import net.coobird.thumbnailator.builders.ThumbnailParameterBuilder;
+import net.coobird.thumbnailator.filters.ImageFilter;
+import net.coobird.thumbnailator.makers.FixedSizeThumbnailMaker;
+import net.coobird.thumbnailator.makers.ScaledThumbnailMaker;
+import net.coobird.thumbnailator.name.Rename;
+import net.coobird.thumbnailator.resizers.DefaultResizerFactory;
+import net.coobird.thumbnailator.resizers.Resizer;
+import net.coobird.thumbnailator.tasks.FileThumbnailTask;
+import net.coobird.thumbnailator.tasks.StreamThumbnailTask;
+import net.coobird.thumbnailator.tasks.ThumbnailTask;
+import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
+
+public final class Thumbnailator{
+
+  public static void createThumbnail(ThumbnailTask<?, ?> task) throws IOException
+	{
+    BufferedImage sourceImage = task.read();
+    
+    // ...
+    
+  }
+
+}
+"
+jenkins_1,memory,False,"package hudson.remoting;
+
+final class Response<RSP,EXC extends Throwable> extends Command {
+  
+  private final int id;
+  
+  @Override
+     protected void execute(Channel channel) {
+         Request req = channel.pendingCalls.get(id);
+         if(req==null)
+             return; // maybe aborted
+         req.onCompleted(this);
+     }
+}
+"
+jenkins_13,security,True,"package hudson.cli;
+
+import hudson.Extension;
+import hudson.model.ParametersAction;
+import hudson.model.Run;
+import hudson.model.StringParameterValue;
+import org.kohsuke.args4j.Argument;
+
+import java.util.Collections;
+
+public class SetBuildParameterCommand extends CommandDuringBuild {
+
+    @Override
+    protected int run() throws Exception {
+        Run r = getCurrentlyBuilding();
+        r.checkPermission(Run.UPDATE);
+
+        ParametersAction a = r.getAction(ParametersAction.class);
+        return 0;
+    }   
+}
+"
+jenkins_8,security,True,"package hudson.scm;
+
+import static hudson.Util.fixNull;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.Launcher;
+import hudson.Proc;
+import hudson.Util;
+import static hudson.Util.fixEmpty;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractModelObject;
+import hudson.model.AbstractProject;
+import hudson.model.Action;
+import hudson.model.BuildListener;
+import hudson.model.Hudson;
+import hudson.model.Job;
+import hudson.model.LargeText;
+import hudson.model.ModelObject;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.org.apache.tools.ant.taskdefs.cvslib.ChangeLogTask;
+import hudson.remoting.RemoteOutputStream;
+import hudson.remoting.VirtualChannel;
+import hudson.util.ArgumentListBuilder;
+import hudson.util.ByteBuffer;
+import hudson.util.ForkOutputStream;
+import hudson.util.FormFieldValidator;
+import hudson.util.StreamTaskListener;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.Expand;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.lang.ref.WeakReference;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public final class TagAction extends AbstractModelObject implements Action{
+    
+    public synchronized void doSubmit(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
+                if(!Hudson.adminCheck(req,rsp))
+                    return;
+                    
+                Map<AbstractBuild,String> tagSet = new HashMap<AbstractBuild,String>();    
+                String name = req.getParameter(""name"");
+                tagSet.put(build,name);
+            }
+}
+"
+jenkins_5,security,True,"package hudson.model;
+
+import com.thoughtworks.xstream.converters.basic.AbstractBasicConverter;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
+
+public final class BuildAuthorizationToken {
+        public static void startBuildIfAuthorized(BuildAuthorizationToken token, BuildableItem job, StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
+                if(!Hudson.getInstance().isUseSecurity() || (token!=null && token.authorizedToStartBuild(req,rsp))) {
+                    job.scheduleBuild();
+                    rsp.forwardToPreviousPage(req);
+                }
+            }
+}
+"
+jenkins_7,security,False,"package hudson.model;
+
+import com.thoughtworks.xstream.XStream;
+import groovy.lang.GroovyShell;
+import hudson.FeedAdapter;
+import hudson.Launcher;
+import hudson.Launcher.LocalLauncher;
+import hudson.Plugin;
+import hudson.PluginManager;
+import hudson.PluginWrapper;
+import hudson.Util;
+import hudson.XmlFile;
+import hudson.FilePath;
+import static hudson.Util.fixEmpty;
+import hudson.model.Descriptor.FormException;
+import hudson.model.listeners.ItemListener;
+import hudson.model.listeners.JobListener;
+import hudson.model.listeners.JobListener.JobListenerAdapter;
+import hudson.model.listeners.SCMListener;
+import hudson.remoting.LocalChannel;
+import hudson.remoting.VirtualChannel;
+import hudson.scm.CVSSCM;
+import hudson.scm.SCM;
+import hudson.scm.SCMS;
+import hudson.tasks.BuildStep;
+import hudson.tasks.BuildWrapper;
+import hudson.tasks.BuildWrappers;
+import hudson.tasks.Builder;
+import hudson.tasks.Mailer;
+import hudson.tasks.Publisher;
+import hudson.triggers.Trigger;
+import hudson.triggers.Triggers;
+import hudson.triggers.TriggerDescriptor;
+import hudson.util.CopyOnWriteList;
+import hudson.util.CopyOnWriteMap;
+import hudson.util.FormFieldValidator;
+import hudson.util.XStream2;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Vector;
+import java.util.StringTokenizer;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+
+/**
+ * Root object of the system.
+ * @author Kohsuke Kawaguchi
+ */
+public final class Hudson extends View implements ItemGroup<TopLevelItem>, Node {
+  /**
+  * Called once the user logs in. Just forward to the top page.
+  */
+    public void doLoginEntry( StaplerRequest req, StaplerResponse rsp ) throws IOException {
+       rsp.sendRedirect2(req.getContextPath()+""/"");
+     }
+
+
+
+
+}
+"
+jenkins_12,resource management,False,"package hudson;
+
+import hudson.util.IOException2;
+import hudson.util.VersionNumber;
+import hudson.model.Hudson;
+import hudson.model.UpdateCenter;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Expand;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.commons.logging.LogFactory;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.Manifest;
+import java.util.logging.Logger;
+
+public final class PluginWrapper {
+        private static final class Dependency {
+                public PluginWrapper(PluginManager owner, File archive) throws IOException {
+
+                        boolean isLinked = archive.getName().endsWith("".hpl"");
+
+                        if(isLinked) {
+                            BufferedReader archiveReader = new BufferedReader(new FileReader(archive));
+                        }
+                    }
+        }
+}
+"
+jenkins_4,security,False,"package hudson;
+
+import hudson.util.IOException2;
+import hudson.model.Hudson;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Expand;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.commons.logging.LogFactory;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.Manifest;
+import java.util.logging.Logger;
+
+private static final class Dependency {
+        
+        public void pattern(StaplerRequest req, StaplerResponse rsp) throws IOException {
+                enable();
+                rsp.setStatus(200);
+            }
+}
+"
+jenkins_3,security,True,"package hudson.model;
+import hudson.security.Permission;
+import hudson.security.PermissionGroup;
+
+@ExportedBean
+public final class Hudson extends Node implements ItemGroup<TopLevelItem>, StaplerProxy, StaplerFallback, ViewGroup, AccessControlled, DescriptorByNameOwner {
+        public <T extends Item> T getItemByFullName(String fullName, Class<T> type) {
+                
+                StringTokenizer tokens = new StringTokenizer(fullName,""/"");
+                ItemGroup parent = this;
+
+                while(true) {
+                    Item item = parent.getItem(tokens.nextToken());
+
+                    if (!item.hasPermission(Item.READ))
+                        return null;
+                }
+            }
+}
+"
+jenkins_9,resource management,False,"package hudson.scm;
+
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.Launcher;
+import hudson.Util;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.BuildListener;
+import hudson.model.Hudson;
+import hudson.model.TaskListener;
+import hudson.remoting.Callable;
+import hudson.remoting.Channel;
+import hudson.remoting.VirtualChannel;
+import hudson.util.FormFieldValidator;
+import hudson.util.IOException2;
+import hudson.util.MultipartFormDataParser;
+import hudson.util.Scrambler;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.FileUtils;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Chmod;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+import org.tmatesoft.svn.core.SVNErrorCode;
+import org.tmatesoft.svn.core.SVNErrorMessage;
+import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationProvider;
+import org.tmatesoft.svn.core.auth.SVNAuthentication;
+import org.tmatesoft.svn.core.auth.SVNPasswordAuthentication;
+import org.tmatesoft.svn.core.auth.SVNSSHAuthentication;
+import org.tmatesoft.svn.core.auth.SVNSSLAuthentication;
+import org.tmatesoft.svn.core.auth.SVNUserNameAuthentication;
+import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
+import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
+import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
+import org.tmatesoft.svn.core.internal.wc.DefaultSVNAuthenticationManager;
+import org.tmatesoft.svn.core.io.SVNRepository;
+import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
+import org.tmatesoft.svn.core.wc.SVNClientManager;
+import org.tmatesoft.svn.core.wc.SVNInfo;
+import org.tmatesoft.svn.core.wc.SVNRevision;
+import org.tmatesoft.svn.core.wc.SVNUpdateClient;
+import org.tmatesoft.svn.core.wc.SVNWCClient;
+import org.tmatesoft.svn.core.wc.SVNWCUtil;
+
+import javax.servlet.ServletException;
+import javax.xml.transform.stream.StreamResult;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+public class SubversionSCM extends SCM implements Serializable {
+        
+        static Map<String,Long> parseRevisionFile(AbstractBuild build) throws IOException {
+                Map<String,Long> revisions = new HashMap<String,Long>(); 
+                
+                {
+                    File file = getRevisionFile(build);
+
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                }
+                return revisions;
+            }
+}
+
+"
+jenkins_11,resource management,True,"package hudson.scm;
+
+import hudson.EnvVars;
+import hudson.FilePath;
+import hudson.FilePath.FileCallable;
+import hudson.Launcher;
+import hudson.Proc;
+import hudson.Util;
+import hudson.security.Permission;
+import static hudson.Util.fixEmpty;
+import static hudson.Util.fixNull;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.BuildListener;
+import hudson.model.Hudson;
+import hudson.model.Job;
+import hudson.model.ModelObject;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import hudson.model.TaskThread;
+import hudson.org.apache.tools.ant.taskdefs.cvslib.ChangeLogTask;
+import hudson.remoting.Future;
+import hudson.remoting.RemoteOutputStream;
+import hudson.remoting.VirtualChannel;
+import hudson.util.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.Expand;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class CVSSCM extends SCM implements Serializable {
+
+    private boolean calcChangeLog(AbstractBuild build, FilePath ws, final List < String > changedFiles, File changelogFile, final BuildListener listener) throws InterruptedException {
+
+        try {
+            OutputStream o = new RemoteOutputStream(new FileOutputStream(changelogFile));
+
+            ChangeLogResult result = ws.act(new FileCallable < ChangeLogResult > () {
+                    public ChangeLogResult invoke(File ws, VirtualChannel channel) throws IOException {
+                        final StringWriter errorOutput = new StringWriter();
+                        final boolean[] hadError = new boolean[1];
+
+                        // ...
+
+                        BufferedOutputStream bufferedOutput = new BufferedOutputStream(out);
+
+                        try {
+                            // ...
+
+                        } finally {
+                            bufferedOutput.close();
+                        }
+
+                        return new ChangeLogResult(hadError[0], errorOutput.toString());
+                    }
+                }
+            });
+            return true;
+    } finally {
+        IOUtils.closeQuietly(o);
+    }
+}
+"
+leakcanary_1,memory,False,"package com.squareup.leakcanary;
+
+import com.squareup.haha.perflib.ArrayInstance;
+import com.squareup.haha.perflib.ClassInstance;
+import com.squareup.haha.perflib.ClassObj;
+import com.squareup.haha.perflib.Field;
+import com.squareup.haha.perflib.HprofParser;
+import com.squareup.haha.perflib.Instance;
+import com.squareup.haha.perflib.RootObj;
+import com.squareup.haha.perflib.RootType;
+import com.squareup.haha.perflib.Snapshot;
+import com.squareup.haha.perflib.Type;
+import com.squareup.haha.perflib.io.HprofBuffer;
+import com.squareup.haha.perflib.io.MemoryMappedFileBuffer;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.N_MR1;
+import static com.squareup.leakcanary.AnalysisResult.failure;
+import static com.squareup.leakcanary.AnalysisResult.leakDetected;
+import static com.squareup.leakcanary.AnalysisResult.noLeak;
+import static com.squareup.leakcanary.HahaHelper.asString;
+import static com.squareup.leakcanary.HahaHelper.classInstanceValues;
+import static com.squareup.leakcanary.HahaHelper.extendsThread;
+import static com.squareup.leakcanary.HahaHelper.fieldValue;
+import static com.squareup.leakcanary.HahaHelper.hasField;
+import static com.squareup.leakcanary.HahaHelper.threadName;
+import static com.squareup.leakcanary.LeakTraceElement.Holder.ARRAY;
+import static com.squareup.leakcanary.LeakTraceElement.Holder.CLASS;
+import static com.squareup.leakcanary.LeakTraceElement.Holder.OBJECT;
+import static com.squareup.leakcanary.LeakTraceElement.Holder.THREAD;
+import static com.squareup.leakcanary.LeakTraceElement.Type.ARRAY_ENTRY;
+import static com.squareup.leakcanary.LeakTraceElement.Type.INSTANCE_FIELD;
+import static com.squareup.leakcanary.LeakTraceElement.Type.STATIC_FIELD;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
+
+public final class HeapAnalyzer {
+
+  public AnalysisResult checkForLeak(File heapDumpFile, String referenceKey) {
+      long analysisStartNanoTime = System.nanoTime();
+      try {
+        HprofBuffer buffer = new MemoryMappedFileBuffer(heapDumpFile);
+        HprofParser parser = new HprofParser(buffer);
+        Snapshot snapshot = parser.parse();
+
+        Instance leakingRef = findLeakingReference(referenceKey, snapshot);
+        return findLeakTrace(analysisStartNanoTime, snapshot, leakingRef);
+      }
+    }
+}
+"
+cwac-wakeful_1,memory,True,"import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.os.PowerManager;
+import android.util.Log;
+
+public class WakefulIntentService extends IntentService {
+	private static PowerManager.WakeLock lockStatic = null;
+	
+	public static void example() {
+		lockStatic.acquire();
+	
+		try {
+			// ...
+		}
+		finally {
+			lockStatic.release();
+		}
+	}
+}	
+"
+POO_1,performance,True,"import java.lang.StringBuffer;
+
+public class Hotel {
+  
+  public String toString() {
+      StringBuilder buf = new StringBuilder();
+      buf.append(""Código: "");buf.append(this.getCod());buf.append(""\n"");
+      buf.append(""Nome: "");buf.append(this.getNome());buf.append(""\n"");
+      buf.append(""Local: "");buf.append(this.getLocal());buf.append(""\n"");
+      buf.append(""Categoria: "");buf.append(this.getCategoria());buf.append(""\n"");
+      buf.append(""Quartos disp: "");buf.append(this.getDisponiveis());buf.append(""\n"");
+      buf.append(""Preço: "");buf.append(this.getPreco());buf.append(""\n"");
+      return buf.toString();
+    }
+"
+quiz-app_1,"memory, performance",False,"package com.developervishalsehgal.udacityscholarsapp.data.models;
+
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+@IgnoreExtraProperties
+public class Quiz {
+  
+  private Double mRating;
+  
+  public Double getRating() {
+        return mRating;
+    }
+
+}
+
+package com.developervishalsehgal.udacityscholarsapp.data.models;
+
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+
+@IgnoreExtraProperties
+public class Question {
+
+  private Long mMarks;
+  
+  public Long getMarks() {
+        return mMarks;
+    }
+}
+
+package com.developervishalsehgal.udacityscholarsapp.data.models;
+
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class NotificationPrefs {
+
+    private Boolean mCommentNotifs;
+    
+    public Boolean getCommentNotifs() {
+         return mCommentNotifs;	         
+     }	
+}
+    
+    
+    
+"
+ig-json-parser_1,memory,False,"package com.instagram.common.json.annotation;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.CLASS;
+
+@Retention(CLASS) @Target(FIELD)
+public @interface JsonField {
+  // ...
+}
+"
+Fowler_2,performance,True,"package de.dhbw.fowler;
+
+import java.lang.*;
+import java.util.*;
+
+public class Customer {
+	
+	private StringBuilder builder;
+	
+	public String statement() {
+		double totalAmount = 0;	
+		int frequentRenterPoints = 0;
+		
+		builder.setLength(0); // resets the builder
+		
+	  	builder.append(""Rental Record for "" + this.getName() + ""\n"");
+		builder.append(""\tTitle\t\tDays\tAmount\n"");
+
+	  	builder.append(""Amount owed is "" + String.valueOf(totalAmount) + ""\n"");
+	  	builder.append(""You earned "" + String.valueOf(frequentRenterPoints) + "" frequent renter points"");
+		return builder.toString();
+  	}
+}
+"
+Fowler_1,performance,True,"package de.dhbw.fowler;
+
+import java.lang.*;
+import java.util.*;
+
+public class Customer {
+
+	private String name;
+	private ArrayList<Rental> rentals = new ArrayList<>();
+
+	public void pattern(Rental rental) {
+		rentals.add(rental);
+		rentals.remove(rental);
+	}
+}
+"
+terasology_5,memory,True,"package org.terasology.entitySystem.entity.internal;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+
+import gnu.trove.iterator.TLongIterator;
+import gnu.trove.iterator.TLongObjectIterator;
+import gnu.trove.list.TLongList;
+import gnu.trove.list.array.TLongArrayList;
+import gnu.trove.set.TLongSet;
+import gnu.trove.set.hash.TLongHashSet;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.terasology.entitySystem.Component;
+import org.terasology.entitySystem.entity.EntityBuilder;
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.entity.lifecycleEvents.BeforeDeactivateComponent;
+import org.terasology.entitySystem.entity.lifecycleEvents.BeforeEntityCreated;
+import org.terasology.entitySystem.entity.lifecycleEvents.BeforeRemoveComponent;
+import org.terasology.entitySystem.entity.lifecycleEvents.OnActivatedComponent;
+import org.terasology.entitySystem.entity.lifecycleEvents.OnAddedComponent;
+import org.terasology.entitySystem.entity.lifecycleEvents.OnChangedComponent;
+import org.terasology.entitySystem.event.internal.EventSystem;
+import org.terasology.entitySystem.metadata.ComponentLibrary;
+import org.terasology.entitySystem.prefab.Prefab;
+import org.terasology.entitySystem.prefab.PrefabManager;
+import org.terasology.logic.location.LocationComponent;
+import org.terasology.math.geom.Quat4f;
+import org.terasology.math.geom.Vector3f;
+import org.terasology.persistence.typeHandling.TypeSerializationLibrary;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+public class PojoEntityManager implements EngineEntityManager {
+      
+    @Override
+    public void destroy(long entityId) {
+        
+        EntityRef ref = createEntityRef(entityId);
+        
+        // ..
+          
+        notifyComponentRemovalAndEntityDestruction(entityId, ref);
+        destroy(ref);
+    }
+}
+"
+terasology_3,memory,True," package org.terasology.engine.modes;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.terasology.TeraOVR;
+import org.terasology.asset.AssetManager;
+import org.terasology.config.Config;
+import org.terasology.engine.ComponentSystemManager;
+import org.terasology.engine.GameEngine;
+import org.terasology.engine.GameThread;
+import org.terasology.engine.module.ModuleManager;
+import org.terasology.engine.subsystem.DisplayDevice;
+import org.terasology.entitySystem.entity.EntityManager;
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.entity.internal.EngineEntityManager;
+import org.terasology.entitySystem.event.internal.EventSystem;
+import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.game.Game;
+import org.terasology.input.InputSystem;
+import org.terasology.input.cameraTarget.CameraTargetSystem;
+import org.terasology.logic.console.Console;
+import org.terasology.module.Module;
+import org.terasology.module.ModuleEnvironment;
+import org.terasology.monitoring.PerformanceMonitor;
+import org.terasology.network.NetworkMode;
+import org.terasology.network.NetworkSystem;
+import org.terasology.physics.engine.PhysicsEngine;
+import org.terasology.registry.CoreRegistry;
+import org.terasology.rendering.nui.NUIManager;
+import org.terasology.rendering.nui.databinding.ReadOnlyBinding;
+import org.terasology.rendering.oculusVr.OculusVrHelper;
+import org.terasology.rendering.opengl.DefaultRenderingProcess;
+import org.terasology.rendering.world.WorldRenderer;
+import org.terasology.world.block.BlockManager;
+
+import java.util.Collections;
+
+public class StateIngame implements GameState {
+	private NUIManager nuiManager;
+
+	public void pattern() {
+
+		nuiManager.getHUD().bindVisible(new ReadOnlyBinding<Boolean>() {
+		    @Override
+		    public Boolean get() {
+			return !CoreRegistry.get(Config.class).getRendering().getDebug().isHudHidden();
+		    }
+		});
+
+		// ...
+
+		nuiManager.clear();
+		nuiManager.getHUD().clearVisibleBinding();
+	    }
+}
+"
+terasology_4,memory,True,"package org.terasology.physics.bullet;
+
+import com.bulletphysics.BulletGlobals;
+import com.bulletphysics.collision.broadphase.BroadphaseInterface;
+import com.bulletphysics.collision.broadphase.BroadphasePair;
+import com.bulletphysics.collision.broadphase.CollisionFilterGroups;
+import com.bulletphysics.collision.broadphase.DbvtBroadphase;
+import com.bulletphysics.collision.dispatch.CollisionConfiguration;
+import com.bulletphysics.collision.dispatch.CollisionDispatcher;
+import com.bulletphysics.collision.dispatch.CollisionFlags;
+import com.bulletphysics.collision.dispatch.CollisionObject;
+import com.bulletphysics.collision.dispatch.CollisionWorld;
+import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
+import com.bulletphysics.collision.dispatch.GhostObject;
+import com.bulletphysics.collision.dispatch.GhostPairCallback;
+import com.bulletphysics.collision.dispatch.PairCachingGhostObject;
+import com.bulletphysics.collision.narrowphase.ManifoldPoint;
+import com.bulletphysics.collision.narrowphase.PersistentManifold;
+import com.bulletphysics.collision.shapes.BoxShape;
+import com.bulletphysics.collision.shapes.CapsuleShape;
+import com.bulletphysics.collision.shapes.ConvexHullShape;
+import com.bulletphysics.collision.shapes.ConvexShape;
+import com.bulletphysics.collision.shapes.CylinderShape;
+import com.bulletphysics.collision.shapes.SphereShape;
+import com.bulletphysics.collision.shapes.voxel.VoxelWorldShape;
+import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
+import com.bulletphysics.dynamics.DynamicsWorld;
+import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
+import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
+import com.bulletphysics.linearmath.DefaultMotionState;
+import com.bulletphysics.linearmath.Transform;
+import com.bulletphysics.util.ObjectArrayList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import gnu.trove.iterator.TFloatIterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.logic.characters.CharacterMovementComponent;
+import org.terasology.logic.location.LocationComponent;
+import org.terasology.math.AABB;
+import org.terasology.math.Vector3i;
+import org.terasology.monitoring.PerformanceMonitor;
+import org.terasology.physics.CollisionGroup;
+import org.terasology.physics.HitResult;
+import org.terasology.physics.StandardCollisionGroup;
+import org.terasology.physics.components.RigidBodyComponent;
+import org.terasology.physics.components.TriggerComponent;
+import org.terasology.physics.engine.CharacterCollider;
+import org.terasology.physics.engine.PhysicsEngine;
+import org.terasology.physics.engine.PhysicsLiquidWrapper;
+import org.terasology.physics.engine.PhysicsSystem;
+import org.terasology.physics.engine.PhysicsWorldWrapper;
+import org.terasology.physics.engine.RigidBody;
+import org.terasology.physics.shapes.BoxShapeComponent;
+import org.terasology.physics.shapes.CapsuleShapeComponent;
+import org.terasology.physics.shapes.CylinderShapeComponent;
+import org.terasology.physics.shapes.HullShapeComponent;
+import org.terasology.physics.shapes.SphereShapeComponent;
+import org.terasology.registry.CoreRegistry;
+import org.terasology.world.BlockEntityRegistry;
+import org.terasology.world.WorldProvider;
+
+import javax.vecmath.Matrix3f;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+public class BulletPhysics implements PhysicsEngine {
+    
+    public void pattern() {
+        liquidWrapper = new PhysicsLiquidWrapper(world);
+        
+        // ...
+
+        liquidWrapper.dispose();
+    }
+    
+    
+}
+"
+poei-2018-cgi-base-spring_1,security,False,"package hello.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Table(name = ""sys_user"")
+public class User {
+
+  private String password;
+
+}
+"
+sample-employee-rest-server_2,security,False,"package com.derrikcurran.sample.employeerestserver.employee;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = ""employees"")
+public class Employee {
+
+    private long id;
+    
+}
+"
+sample-employee-rest-server_1,"memory, performance",True,"package com.derrikcurran.sample.employeerestserver.security;
+
+import com.derrikcurran.sample.employeerestserver.user.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class UserDetailsImpl implements UserDetails {
+
+    private long id;
+    
+    long getId() {
+        return id;
+    }
+}
+"
+ADFGVX_1,performance,False,"package ch.hearc.st.app;
+
+import java.util.ArrayList;
+
+public class Utils{
+
+  private static String pattern(int[] tab) {
+      String perm = """";
+      int nbiter = tab.length;
+
+      for (int m = 0; m < nbiter; m++) {
+        perm += tab[m];
+        if (m < nbiter - 1) {
+          perm += "","";
+        }
+      }
+      return perm;
+    }
+}
+"
+RoboSpock_1,memory,False,"package pl.polidea.robospock;
+
+import android.net.Uri__FromAndroid;
+import com.xtremelabs.robolectric.RobolectricConfig;
+import com.xtremelabs.robolectric.bytecode.RobolectricClassLoader;
+import com.xtremelabs.robolectric.bytecode.ShadowWrangler;
+import com.xtremelabs.robolectric.internal.RealObject;
+import com.xtremelabs.robolectric.util.DatabaseConfig;
+import org.codehaus.groovy.runtime.ArrayUtil;
+import org.junit.runner.Description;
+import org.junit.runner.Runner;
+import org.junit.runner.manipulation.*;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.model.InitializationError;
+import org.spockframework.runtime.Sputnik;
+
+import java.lang.reflect.Constructor;
+
+public class RoboSputnik extends Runner implements Filterable, Sortable {
+
+    private static RobolectricClassLoader classLoader;
+
+    public RoboSputnik(final Class<?> clazz) throws InitializationError {
+
+            final RobolectricClassLoader classLoader = createClassLoader();
+            classLoader.delegateLoadingOf(ArrayUtil.class.getName());
+    }
+}
+"
+elasticsearch_9,determinism,True,"package org.elasticsearch.index.fielddata.fieldcomparator;
+
+import org.elasticsearch.index.fielddata.IndexNumericFieldData;
+
+import java.io.IOException;
+
+public final class FloatValuesComparator extends DoubleValuesComparatorBase<Float> {
+
+  private final float[] values;
+
+   @Override
+    public int compare(int slot1, int slot2) {
+        final float v1 = values[slot1];
+        final float v2 = values[slot2];
+        return Float.compare(v1, v2);
+    }
+
+}
+
+package org.elasticsearch.index.fielddata.fieldcomparator;
+
+import org.apache.lucene.index.AtomicReaderContext;
+import org.apache.lucene.search.FieldComparator;
+import org.elasticsearch.index.fielddata.DoubleValues;
+import org.elasticsearch.index.fielddata.IndexNumericFieldData;
+
+import java.io.IOException;
+
+abstract class DoubleValuesComparatorBase<T extends Number> extends NumberComparatorBase<T> {
+  
+  static final int compare(double left, double right) {
+        return Double.compare(left, right);
+    }
+
+}
+"
+elasticsearch_3,performance,True,"package org.elasticsearch.cluster.routing;
+
+import org.elasticsearch.cluster.node.DiscoveryNode;
+import org.elasticsearch.common.Nullable;
+import org.elasticsearch.index.shard.ShardId;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+public class RoutingNode implements Iterable<ShardRouting> {  
+  
+  public String prettyPrint() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(""-----node_id["").append(nodeId).append(""]["").append(node == null ? ""X"" : ""V"").append(""]\n"");
+        for (ShardRouting entry : shards.values()) {
+            sb.append(""--------"").append(entry.shortSummary()).append('\n');
+        }
+        return sb.toString();
+    }
+}
+"
+elasticsearch_4,performance,False,"package org.elasticsearch.action.admin.cluster.node.info;
+
+import org.elasticsearch.Version;
+import org.elasticsearch.common.Strings;
+import org.elasticsearch.common.io.stream.StreamInput;
+import org.elasticsearch.common.io.stream.StreamOutput;
+import org.elasticsearch.common.io.stream.Streamable;
+import org.elasticsearch.common.xcontent.ToXContent;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentBuilderString;
+
+import java.io.IOException;
+import java.io.Serializable;
+
+public class PluginInfo implements Streamable, Serializable, ToXContent {
+
+  @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer(""PluginInfo{"");
+        sb.append(""name='"").append(name).append('\'');
+        sb.append("", description='"").append(description).append('\'');
+        sb.append("", site="").append(site);
+        sb.append("", jvm="").append(jvm);
+        sb.append("", version='"").append(version).append('\'');
+        sb.append("", isolation='"").append(isolation);
+        sb.append('}');
+        return sb.toString();
+    }
+}
+"
+elasticsearch_12,memory,False,"package org.elasticsearch.indices.cache.query;
+
+import com.carrotsearch.hppc.ObjectOpenHashSet;
+import com.carrotsearch.hppc.ObjectSet;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
+import com.google.common.cache.Weigher;
+
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.util.Accountable;
+import org.apache.lucene.util.RamUsageEstimator;
+import org.elasticsearch.ElasticsearchIllegalArgumentException;
+import org.elasticsearch.ElasticsearchIllegalStateException;
+import org.elasticsearch.ElasticsearchParseException;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.cluster.ClusterService;
+import org.elasticsearch.cluster.metadata.IndexMetaData;
+import org.elasticsearch.common.bytes.BytesReference;
+import org.elasticsearch.common.bytes.PagedBytesReference;
+import org.elasticsearch.common.bytes.ReleasablePagedBytesReference;
+import org.elasticsearch.common.component.AbstractComponent;
+import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.common.io.stream.BytesStreamOutput;
+import org.elasticsearch.common.io.stream.ReleasableBytesStreamOutput;
+import org.elasticsearch.common.io.stream.StreamInput;
+import org.elasticsearch.common.io.stream.StreamOutput;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.unit.MemorySizeValue;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.util.BigArrays;
+import org.elasticsearch.common.util.concurrent.ConcurrentCollections;
+import org.elasticsearch.common.util.concurrent.EsRejectedExecutionException;
+import org.elasticsearch.index.shard.IndexShard;
+import org.elasticsearch.index.shard.IndexShardState;
+import org.elasticsearch.search.SearchShardTarget;
+import org.elasticsearch.search.internal.SearchContext;
+import org.elasticsearch.search.internal.ShardSearchRequest;
+import org.elasticsearch.search.query.QueryPhase;
+import org.elasticsearch.search.query.QuerySearchResult;
+import org.elasticsearch.search.query.QuerySearchResultProvider;
+import org.elasticsearch.threadpool.ThreadPool;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+
+import static org.elasticsearch.common.Strings.hasLength;
+
+public class IndicesQueryCache extends AbstractComponent implements RemovalListener<IndicesQueryCache.Key, IndicesQueryCache.Value> {
+  
+        @Override
+        public Value call() throws Exception {
+            
+            try (BytesStreamOutput out = new BytesStreamOutput()) {
+                final BytesReference reference = out.bytes();
+                Value value = new Value(reference, out.ramBytesUsed());
+                return value;
+            }
+        }
+ }
+"
+elasticsearch_7,resource management,True,"package org.elasticsearch.util.settings.loader;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
+import org.elasticsearch.util.io.FastStringReader;
+import org.elasticsearch.util.json.Jackson;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.collect.Lists.*;
+import static com.google.common.collect.Maps.*;
+
+public class JsonSettingsLoader implements SettingsLoader {
+
+  @Override public Map<String, String> load(String source) throws IOException {
+        JsonParser jp = jsonFactory.createJsonParser(new FastStringReader(source));
+        try {
+            return load(jp);
+        } finally {
+            jp.close();
+        }
+    }
+}
+"
+elasticsearch_11,"memory, performance",True,"package org.elasticsearch.search.fetch.source;
+
+import com.google.common.collect.ImmutableMap;
+import org.elasticsearch.ElasticsearchException;
+import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.common.io.stream.BytesStreamOutput;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.search.SearchParseElement;
+import org.elasticsearch.search.fetch.FetchSubPhase;
+import org.elasticsearch.search.internal.InternalSearchHit;
+import org.elasticsearch.search.internal.SearchContext;
+import org.elasticsearch.search.lookup.SourceLookup;
+
+import java.io.IOException;
+import java.util.Map;
+
+public class FetchSourceSubPhase implements FetchSubPhase {
+  
+    @Override
+    public void hitExecute(SearchContext context, HitContext hitContext) throws ElasticsearchException {
+       
+        SourceLookup source = context.lookup().source();
+        final int initialCapacity = Math.min(1024, source.internalSourceRef().length());
+        BytesStreamOutput streamOutput = new BytesStreamOutput(initialCapacity);
+        XContentBuilder builder = new XContentBuilder(context.lookup().source().sourceContentType().xContent(), streamOutput);
+    }
+}
+"
+elasticsearch_13,performance,True,"
+package org.elasticsearch.index.rankeval;
+
+import org.elasticsearch.common.bytes.BytesReference;
+import org.elasticsearch.common.io.stream.NamedWriteableRegistry;
+import org.elasticsearch.common.text.Text;
+import org.elasticsearch.common.xcontent.ToXContent;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentParser;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.json.JsonXContent;
+import org.elasticsearch.index.Index;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchShardTarget;
+import org.elasticsearch.test.ESTestCase;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.elasticsearch.test.EqualsHashCodeTestUtils.checkEqualsAndHashCode;
+import static org.elasticsearch.test.XContentTestUtils.insertRandomFields;
+import static org.hamcrest.Matchers.startsWith;
+
+public class MeanReciprocalRankTests extends ESTestCase {
+
+  public void testCombine() {
+        List<EvalQueryQuality> partialResults = new ArrayList<>(3);
+        partialResults.add(new EvalQueryQuality(""id1"", 0.5));
+        partialResults.add(new EvalQueryQuality(""id2"", 1.0));
+        partialResults.add(new EvalQueryQuality(""id3"", 0.75));
+        # ...
+    }
+}
+"
+elasticsearch_2,performance,True,"package org.elasticsearch.ingest;
+
+import com.carrotsearch.randomizedtesting.generators.RandomNumbers;
+import com.carrotsearch.randomizedtesting.generators.RandomPicks;
+import com.carrotsearch.randomizedtesting.generators.RandomStrings;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
+
+public final class RandomDocumentPicks{
+
+  public static String randomFieldName(Random random) {
+        int numLevels = RandomNumbers.randomIntBetween(random, 1, 5);
+        StringBuilder fieldName = new StringBuilder();
+        for (int i = 0; i < numLevels; i++) {
+            if (i > 0) {
+                fieldName.append('.');
+            }
+            fieldName.append(randomString(random));
+        }
+        return fieldName.toString();
+    }
+}
+
+"
+elasticsearch_8,"memory, performance",False,"package org.elasticsearch.search.facet.termsstats.strings;
+
+import org.elasticsearch.common.collect.ImmutableList;
+import org.elasticsearch.common.io.stream.StreamInput;
+import org.elasticsearch.common.io.stream.StreamOutput;
+import org.elasticsearch.common.thread.ThreadLocals;
+import org.elasticsearch.common.trove.ExtTHashMap;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentBuilderString;
+import org.elasticsearch.search.facet.Facet;
+import org.elasticsearch.search.facet.termsstats.InternalTermsStatsFacet;
+
+import java.io.IOException;
+import java.util.*;
+
+public class InternalTermsStatsStringFacet extends InternalTermsStatsFacet {
+
+  @Override public Facet reduce(String name, List<Facet> facets) {
+     
+          ExtTHashMap<String, StringEntry> map = aggregateCache.get().get();
+          
+          List<DoubleEntry> ordered = new ArrayList<DoubleEntry>();
+          
+          // ...
+          
+          return new InternalTermsStatsStringFacet(name, comparatorType, requiredSize, ordered, missing);
+        
+    }
+}
+"
+elasticsearch_14,determinism,False,"package org.elasticsearch.cluster.routing.allocation.allocator;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.lucene.util.ArrayUtil;
+import org.apache.lucene.util.IntroSorter;
+import org.elasticsearch.cluster.metadata.IndexMetaData;
+import org.elasticsearch.cluster.metadata.MetaData;
+import org.elasticsearch.cluster.node.DiscoveryNode;
+import org.elasticsearch.cluster.routing.RoutingNode;
+import org.elasticsearch.cluster.routing.RoutingNodes;
+import org.elasticsearch.cluster.routing.ShardRouting;
+import org.elasticsearch.cluster.routing.ShardRoutingState;
+import org.elasticsearch.cluster.routing.UnassignedInfo.AllocationStatus;
+import org.elasticsearch.cluster.routing.allocation.AllocateUnassignedDecision;
+import org.elasticsearch.cluster.routing.allocation.AllocationDecision;
+import org.elasticsearch.cluster.routing.allocation.MoveDecision;
+import org.elasticsearch.cluster.routing.allocation.NodeAllocationResult;
+import org.elasticsearch.cluster.routing.allocation.RoutingAllocation;
+import org.elasticsearch.cluster.routing.allocation.ShardAllocationDecision;
+import org.elasticsearch.cluster.routing.allocation.decider.AllocationDeciders;
+import org.elasticsearch.cluster.routing.allocation.decider.Decision;
+import org.elasticsearch.cluster.routing.allocation.decider.Decision.Type;
+import org.elasticsearch.cluster.routing.allocation.decider.DiskThresholdDecider;
+import org.elasticsearch.common.collect.Tuple;
+import org.elasticsearch.common.component.AbstractComponent;
+import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.common.settings.ClusterSettings;
+import org.elasticsearch.common.settings.Setting;
+import org.elasticsearch.common.settings.Setting.Property;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.util.set.Sets;
+import org.elasticsearch.gateway.PriorityComparator;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.elasticsearch.cluster.routing.ShardRoutingState.RELOCATING;
+
+public static class Balancer {
+  
+      private boolean tryRelocateShard(ModelNode minNode, ModelNode maxNode, String idx, float minCost) {
+            
+        final float delta = weight.weightShardAdded(this, minNode, idx) - weight.weightShardRemoved(this, maxNode, idx);
+        if (delta < minCost || (candidate != null && delta == minCost && candidate.id() > shard.id())) {
+            // ...
+        }
+      }
+}
+"
+elasticsearch_10,resource management,False,"package org.elasticsearch.index.store;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import org.apache.lucene.store.*;
+import org.apache.lucene.util.IOUtils;
+import org.elasticsearch.common.Strings;
+import org.elasticsearch.common.collect.MapBuilder;
+import org.elasticsearch.common.compress.Compressor;
+import org.elasticsearch.common.compress.CompressorFactory;
+import org.elasticsearch.common.inject.Inject;
+import org.elasticsearch.common.lucene.Directories;
+import org.elasticsearch.common.lucene.store.BufferedChecksumIndexOutput;
+import org.elasticsearch.common.lucene.store.ChecksumIndexOutput;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.unit.ByteSizeValue;
+import org.elasticsearch.index.CloseableIndexComponent;
+import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.shard.AbstractIndexShardComponent;
+import org.elasticsearch.index.shard.ShardId;
+import org.elasticsearch.index.store.distributor.Distributor;
+import org.elasticsearch.index.store.support.ForceSyncDirectory;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.zip.Adler32;
+
+public class StoreDirectory extends Directory implements ForceSyncDirectory {
+  
+  @Override
+  public IndexInput openInput(String name, IOContext context) throws IOException {
+      
+      IndexInput in = metaData.directory().openInput(name, context);
+      boolean success = false;
+      
+        // ...
+      return in;
+  }
+
+}
+"
+elasticsearch_1,performance,False,"package org.elasticsearch.env;
+
+import org.elasticsearch.index.shard.ShardId;
+
+public class ShardLockObtainFailedException extends Exception {
+
+    public String getMessage() {
+        StringBuffer sb = new StringBuffer();
+        
+        sb.append(shardId.toString());
+        sb.append("": "");
+        sb.append(super.getMessage());
+        
+        return sb.toString();
+    }
+}
+"
+PointCloudDatasetReader_1,resource management,False,"package nz.ac.aut.SentienceLab.PointCloudDatasetReader;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
+
+private class Converter implements Runnable
+    {
+    public void pattern()
+        {
+            if ( !execute )
+            {
+                execute = true;
+                initialise();
+                
+                DataSource ds = (DataSource) cbxType.getSelectedItem();                
+                
+              
+            }
+        }
+    }
+"
+EfficientAdapter_1,memory,False,"package com.skocken.efficientadapter.lib.viewholder;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
+import android.view.View;
+
+public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder {
+  
+    private void pattern(int parentId, int id, View viewRetrieve) {
+        storeView(parentId, id, viewRetrieve);
+}
+"
+device-year-class_1,resource management,False,"package com.facebook.device.yearclass;
+
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
+
+import java.io.*;
+
+public class DeviceInfo {
+
+    private static int getCoresFromFileInfo(String fileLocation) {
+        try {
+          InputStream is = new FileInputStream(fileLocation);
+          // ...
+        } catch (IOException e) {
+          // ...
+        } 
+      }
+}
+"
+device-year-class_2,resource management,True,"package com.facebook.device.yearclass;
+
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
+
+import java.io.*;
+
+public class DeviceInfo {
+
+    private static int getCoresFromFileInfo(String fileLocation) {
+      InputStream is = new FileInputStream(fileLocation);
+      BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+      buf.close();
+  }
+
+}
+"
+osmeditor4android_2,memory,False,"
+package de.blau.android;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ZoomControls;
+import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.exception.FollowGpsException;
+import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmServerException;
+import de.blau.android.osb.Bug;
+import de.blau.android.osb.CommitTask;
+import de.blau.android.osb.Database;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Way;
+import de.blau.android.presets.TagKeyAutocompletionAdapter;
+import de.blau.android.presets.TagValueAutocompletionAdapter;
+import de.blau.android.resources.Paints;
+import de.blau.android.views.overlay.OpenStreetBugsOverlay;
+import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+
+public class OpenStreetMapTileProvider implements ServiceConnection,OpenStreetMapViewConstants{
+	
+	protected Context mCtx;
+	
+	public pattern(final Context ctx,final Handler aDownloadFinishedListener) {
+		mCtx = ctx;
+		ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE);
+		
+		// ...
+		
+		
+		
+	}
+}
+			
+			
+
+"
+osmeditor4android_1,performance,False,"package de.blau.android.tasks;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.google.gson.stream.JsonReader;
+
+import android.content.Context;
+import android.util.Log;
+import de.blau.android.R;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.util.DateFormatter;
+import de.blau.android.util.SavingHelper;
+
+public class OsmoseBug extends Bug implements Serializable {
+ 
+  public String getLongDescription(Context context, boolean withElements) {
+         String result = ""Osmose: "" + level2string(context) + ""<br><br>"" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + ""<br>"";
+         if (withElements) {
+             for (OsmElement osm : getElements()) {
+                 if (osm.getOsmVersion() >= 0) {
+                     result = result + ""<br>"" + osm.getName() + "" ("" + context.getString(R.string.openstreetbug_not_downloaded) + "") #"" + osm.getOsmId();
+                 } else {
+                     result = result + ""<br>"" + osm.getName() + "" "" + osm.getDescription(false);
+                 }
+                 result = result + ""<br><br>"";
+             }
+         }
+         result = result + context.getString(R.string.openstreetbug_last_updated) + "": "" + update + "" "" + context.getString(R.string.id) + "": "" + id;
+         return result;
+     }
+}
+"
+osmeditor4android_3,"performance, security",True,"package de.blau.android.imageryoffset;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.ActionMode.Callback;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.blau.android.Application;
+import de.blau.android.HelpViewer;
+import de.blau.android.Logic.Mode;
+import de.blau.android.Map;
+import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.DateFormatter;
+import de.blau.android.util.GeoMath;
+import de.blau.android.util.NetworkStatus;
+import de.blau.android.util.Offset;
+import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.jsonreader.JsonReader;
+import de.blau.android.util.jsonreader.JsonToken;
+
+public class BackgroundAlignmentActionModeCallback implements Callback {
+	
+	private final Uri offsetServerUri;
+		
+	private class OffsetLoader extends AsyncTask<Integer, Void, ArrayList<ImageryOffset>> {
+		
+		public void pattern(Integer... params) {
+	    	
+			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
+			double centerLon = (bbox.getLeft() + ((long)bbox.getRight() - (long)bbox.getLeft())/2L) / 1E7d;
+			Integer radius = params[0];
+			String radiusString = radius != null && radius > 0 ? String.valueOf(radius) : """";
+			
+			Uri uriBuilder = offsetServerUri.buildUpon()
+					.appendPath(""get"")
+					.appendQueryParameter(""lat"", String.valueOf(bbox.getCenterLat()))
+					.appendQueryParameter(""lon"", String.valueOf(centerLon))
+					.appendQueryParameter(""radius"", radiusString)
+					.appendQueryParameter(""imagery"", osmts.getImageryOffsetId())
+					.appendQueryParameter(""format"", ""json"")
+					.build();
+		
+		}
+	}
+}
+		
+"
+Rajawali_1,resource management,True,"package rajawali.parser;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Stack;
+
+import rajawali.animation.mesh.AAnimationObject3D;
+import rajawali.animation.mesh.IAnimationFrame;
+import rajawali.animation.mesh.VertexAnimationFrame;
+import rajawali.animation.mesh.VertexAnimationObject3D;
+import rajawali.materials.DiffuseMaterial;
+import rajawali.materials.TextureManager;
+import rajawali.renderer.RajawaliRenderer;
+import rajawali.util.LittleEndianDataInputStream;
+import rajawali.util.RajLog;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+public class MD2Parser extends AParser implements IParser {
+
+  	private float[] getTexCoords(BufferedInputStream stream, byte[] bytes) throws IOException {
+      
+      LittleEndianDataInputStream is = new LittleEndianDataInputStream(ba);
+      float[] coords = new float[mHeader.numTexCoord * 2];
+
+      // ...
+      is.close();
+      return coords;
+	}
+
+}
+"
+peewee_1,resource management,True,"import datetime
+import decimal
+import hashlib
+import logging
+import operator
+import re
+import sys
+import threading
+import uuid
+from bisect import bisect_left
+from bisect import bisect_right
+from collections import deque
+from collections import namedtuple
+import sqlite3
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = dict
+from copy import deepcopy
+from functools import wraps
+from inspect import isclass
+
+class SqliteDatabase(Database):
+
+  def _connect(self, database, **kwargs):
+        conn = sqlite3.connect(database, **kwargs)
+        try:
+            # ...
+        except:
+            conn.close()
+            raise
+        return conn
+"
+himawaripy_1,performance,False,"from io import BytesIO
+from json import loads
+from time import strptime, strftime
+from subprocess import call
+from os import makedirs
+from os.path import expanduser, split
+from urllib.request import urlopen
+
+from PIL import Image
+
+from utils import get_desktop_environment
+    
+def main():
+    url_format = ""http://himawari8.nict.go.jp/img/D531106/{}d/{}/{}_{}_{}.png""
+    for x in range(level):
+        for y in range(level):
+            with urlopen(url_format.format(level, width, strftime(""%Y/%m/%d/%H%M%S"", latest), x, y)) as tile_w:
+                tiledata = tile_w.read()
+"
+sight2sound_1,performance,False,"import hilbert_curve as hc
+from PIL import Image
+import math
+from time import sleep
+import alsaaudio
+import numpy as np
+from threading import Thread, Lock
+
+def main():
+
+    while True:
+        img = Image.open(input_file).convert(""L"")
+        pixels = img.load()
+        output = []
+        for i in range(0, x ** 2):
+            hilbert = hc.d2xy(math.log(x * y, 2), i)
+            output.append(pixels[hilbert])
+"
+autograd_1,performance,False,"from __future__ import absolute_import
+import numpy as np
+
+from autograd.core import (Node, FloatNode, primitive, cast,
+                           differentiable_ops, nondifferentiable_ops, getval)
+from . import numpy_wrapper as anp
+from .use_gpu_numpy import use_gpu_numpy
+
+class ArrayNode(Node):
+
+  @primitive
+  def primitive_sum_arrays(*arrays):
+      new_array = type(new_array_node(arrays[0], [])).zeros_like(arrays[0]) 
+      for array in arrays:
+          if isinstance(array, SparseArray):
+                  np.add.at(new_array, array.idx, array.val)
+           
+"
+integration_tests_1,performance,False,"import collections
+
+import pytest
+
+from cfme.utils import log
+from cfme.utils.appliance import get_or_create_current_appliance
+
+def pytest_sessionfinish(session, exitstatus):
+    c = collections.Counter()
+    results = ['total: {}'.format(sum(c.values()))] + map(
+        lambda n: '{}: {}'.format(n[0], n[1]), c.items())
+"
+backend-interpreter_1,performance,False,"from multiprocessing import Queue
+from os import environ
+from queue import Empty
+from sys import exit as sysexit
+from time import sleep, time
+
+import rethinkdb
+
+class RethinkInterface:
+
+  def pattern(self, output_data):
+        
+        # ...
+        
+        self.logger.send([""dbprocess"",
+                ""There is no job with an id of "" + output_data[0],
+                30,
+                time()
+            ])
+"
+randomchat_1,performance,False,"from flask import Blueprint, render_template
+from randomchat.settings import settings
+
+import socketio
+import random
+import logging
+
+def free_space(pairs):
+	t_list = []
+	for i in range(0, len(pairs)):
+		if(isinstance(pairs[i], list)):
+			if(pairs[i][0] == 'EMPTY' and pairs[i][1] == 'EMPTY'):
+				t_list.append(pairs[i])
+	for i in range(0, len(t_list)):
+		pairs.remove(t_list[i])
+"
+personal_1,performance,False,"import copy, collections, logging, random, sys, time
+
+class Stat(object):
+
+  def main():
+    
+    numRounds = 14
+    resultSet = [Stat(0, 0, 0)] * numRounds
+  
+    aaverageStats = map(lambda x: x/float(numGames), resultSet)
+    
+"
+elasticsearch-py_1,performance,True,"try:
+    import simplejson as json
+except ImportError:
+    import json
+"
+elasticsearch-py_2,performance,False,"import logging
+import time
+import requests
+import json
+
+from .exceptions import TransportError, HTTP_EXCEPTIONS, ConnectionError
+
+class RequestsHttpConnection(Connection):
+    def pattern(self, method, url, params=None, body=None, timeout=None, **kwargs):
+        # ...
+        
+        self.session = requests.session()
+        url = self.host + self.url_prefix + url
+        request = requests.Request(method, url, params=params or {}, data=body).prepare()
+
+        response = self.session.send(request, timeout=timeout or self.timeout)
+        
+
+  
+"
+salmon_1,memory,True,"import json
+import subprocess
+from optparse import make_option
+import yaml
+
+from django.conf import settings
+from django.core.management.base import BaseCommand
+from django.utils import timezone
+
+from salmon.apps.monitor import models, utils
+
+class Command(BaseCommand):
+
+    def pattern(self):
+        now = datetime.datetime.now()
+        expiration_date = now - datetime.timedelta(
+            minutes=settings.EXPIRE_RESULTS)
+        models.Results.objects.filter(timestamp__lt=expiration_date).delete()
+"
+VS_test_1,performance,True,"def duration(seconds): 
+	p, s = divmod(seconds, 60)
+	p, m = divmod(p, 60)
+	p, h = divmod(p, 60)
+	p, d = divmod(p, 24)
+	y = p%365
+	t = [""year"", ""day"", ""hour"", ""minute"", ""second""]
+	t = [str(j) + "" "" + t[i] for i,j in enumerate((y,d,h,m,s)) if j != 0]
+	t = [i + ""s"" for i in t if not i.startswith(""1"")]
+	return "", "".join(t[:-1]) + "" and "" + t[-1] if len(t) > 1 else t[0]
+"
+Terminal-on-FB-Messenger_1,security,True,"import os
+from selenium import webdriver
+from getpass import getpass
+
+def init():
+	email=input('Email : ')
+	password=getpass('Password : ')
+  
+  #...
+"
+falcon_3,performance,False,"import inspect
+import re
+from functools import wraps
+
+from falcon import responders, HTTP_METHODS
+import falcon.status_codes as status
+
+def prepare_global_hooks(hooks):
+    if hooks is not None:
+        for action in hooks:
+            if not hasattr(action, '__call__'):
+                raise TypeError('One or more hooks are not callable')
+
+    return hooks
+"
+falcon_6,performance,True,"from datetime import datetime
+
+try:
+    import socket
+    NativeStream = socket._fileobject  # pylint: disable=E1101
+except AttributeError:
+    import io
+    NativeStream = io.BufferedReader
+
+import mimeparse
+import six
+
+from falcon.errors import *  
+from falcon import util
+from falcon.util.uri import parse_query_string, parse_host, unquote_string
+from falcon import request_helpers as helpers
+
+from six.moves import http_cookies
+SimpleCookie = http_cookies.SimpleCookie
+
+class Request(object):
+
+  def _parse_rfc_forwarded(self):
+
+        addr = []
+
+        for forwarded in self.env['HTTP_FORWARDED'].split(','):
+            for param in forwarded.split(';'):
+                key, _, val = param.strip().partition('=')
+                
+                # ...
+
+        return addr
+"
+falcon_2,performance,True,"from datetime import datetime
+
+try:
+    import socket
+    NativeStream = socket._fileobject
+except AttributeError:  
+    import io
+    NativeStream = io.BufferedReader
+
+import mimeparse
+import six
+
+from falcon.exceptions import HTTPBadRequest
+from falcon import util
+from falcon import request_helpers as helpers
+
+class Request(object):
+
+    @property
+    def headers(self):
+        return dict([(k.replace('_', '-'), v) for k, v in self._headers.items()])
+"
+AWS-WAF-Test_1,resource management,True,"import requests
+
+def pattern():
+    f = open(""payload/samos_basicfuzz.txt"",""r"") 
+
+    # ...
+
+    f.close()
+"
+plugin.video.arteplussept_1,performance,True,"from xbmcswift2 import Plugin
+from xbmcswift2 import actions
+import requests
+import os
+import urllib2
+import time
+import datetime
+  
+def get_last7days():
+    return flatten([get_day(date) for (date, _) in get_dates()])
+
+from xbmcswift2 import Plugin
+from xbmcswift2 import actions
+import requests
+import os
+import urllib2
+import time
+import datetime
+
+def create_item(data):
+    video = data.get('video')
+
+    item = {
+      
+        'info': {
+            'country': [country['label'] for country in video.get('productionCountries')],
+           
+        },
+       }
+        
+    return item
+
+from xbmcswift2 import Plugin
+from xbmcswift2 import actions
+import requests
+import os
+import urllib2
+import time
+import datetime
+
+@plugin.route('/all', name='all')
+def all_videos():
+    plugin.set_content('tvshows')
+    items = [create_item(program) for program in get_last7days() if program.get('video') is not None]
+    return plugin.finish(items)
+"
+Text-similarity-class_1,performance,False,"import numpy as np
+import pandas as pd
+import time
+from sklearn.feature_extraction.text import TfidfVectorizer
+import string
+import warnings
+warnings.filterwarnings('ignore')
+from contextlib import contextmanager
+import mysql.connector
+from sqlalchemy import create_engine
+import pygsheets
+from tqdm import tqdm
+import yaml
+import os
+import binascii
+import random
+from numba import jit
+
+class TextSim(object): 
+ 
+ def create_shingles(self, data):
+        text_list = list(data[self.text_column])
+        shingles_all = []
+        maxshingleID = 0
+        for i in tqdm(range(0, len(text_list))):       
+            words = text_list[i].split("" "")
+            shingles_set = self._create_shingle(words)
+            maxID = max(shingles_set) if shingles_set else 0
+            if maxID > maxshingleID:
+                maxshingleID = maxID
+            shingles_all.append(shingles_set)
+        return shingles_all, maxshingleID
+"
+Text-similarity-class_2,performance,True,"import numpy as np
+import pandas as pd
+import time
+from sklearn.feature_extraction.text import TfidfVectorizer
+import string
+import warnings
+warnings.filterwarnings('ignore')
+from contextlib import contextmanager
+import mysql.connector
+from sqlalchemy import create_engine
+import pygsheets
+from tqdm import tqdm
+import yaml
+import os
+import binascii
+import random
+from numba import jit
+
+class TextSim(object):
+
+   def _create_shingle(self, doc):
+        shinglesInDoc = set()
+        
+        for index in range(0, len(doc) - (self.shinglesize - 1)):
+            shingle = "" "".join(doc[index:(index + self.shinglesize)]) 
+            
+            # ... 
+            
+        return shinglesInDoc
+"
+django-crispy-forms_1,performance,True,"from django.conf import settings
+from django.forms.formsets import BaseFormSet
+from django.template import Context
+from django.template.loader import get_template
+from django import template
+
+from crispy_forms.helper import FormHelper
+
+register = template.Library()
+# We import the filters, so they are available when doing load crispy_forms_tags
+from crispy_forms_filters import *
+
+class BasicNode(template.Node):
+
+    def get_render(self, context):
+    
+        # ...
+    
+        node_context = context.__copy__()
+        
+        # ...
+"
+django-crispy-forms_2,determinism,False,"from itertools import izip
+
+from django import forms
+from django import template
+from django.conf import settings
+
+
+@register.filter
+def is_checkbox(field):
+    return field.field.widget.__class__.__name__.lower() == ""checkboxinput""
+"
+Theano_2,performance,False,"import sys, operator
+import numpy
+from scipy import sparse
+import scipy.sparse
+from theano.printing import Print
+
+from .. import gof
+from .. import tensor
+from .. import compile
+from .. import scalar
+
+class StructuredDotCSC(gof.Op):
+
+   def c_code(self, node, name, (a_val, a_ind, a_ptr, a_nrows, b), (z,), sub):
+      
+      typenum_z = node.outputs[0].type.dtype_specs()[-1] # retrieve dtype number
+      
+        {
+            if (%(z)s) Py_DECREF(%(z)s);
+            npy_intp dims[] = {0,0};
+            dims[0] = ((npy_int32 *)%(a_nrows)s->data)[0];
+            dims[1] = %(b)s->dimensions[1];
+            %(z)s = (PyArrayObject*) PyArray_SimpleNew(2, dims, %(typenum_z)s);
+        }
+        {
+            // sparse array has size MxK, dense KxN, output MxN
+            npy_intp M = %(z)s->dimensions[0];
+            npy_intp N = %(z)s->dimensions[1];
+            npy_intp K = %(b)s->dimensions[0];
+           
+            dtype_%(z)s*     __restrict__ Dz   = (dtype_%(z)s*)%(z)s->data;
+            
+           //clear the output array
+            for (npy_intp m = 0; m < M; ++m)
+            {
+                for (npy_intp n = 0; n < N; ++n)
+                {
+                    Dz[m*Szm + n*Szn] = 0.0;
+                }
+            }
+ 
+        }
+  
+"
+inline_table_1,performance,True,"import collections
+import copy
+import re
+
+from docutils.parsers.rst.tableparser \
+    import SimpleTableParser as DocutilsSimpleTableParser
+from docutils.parsers.rst.tableparser \
+    import GridTableParser as DocutilsGridTableParser
+from docutils.parsers.rst.tableparser \
+    import TableMarkupError as DocutilsTableMarkupError
+from docutils.statemachine import StringList
+
+ class Table:
+  
+  def select_all(self, **condition):
+        row_generator = self.__select(condition, raise_error=False)
+        return [row for row in row_generator]
+"
