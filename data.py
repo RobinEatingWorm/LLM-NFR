@@ -30,11 +30,13 @@ def get_problem_data(problem_dir: Path) -> pd.DataFrame:
             usages.append(usages_file.read())
     usages = '\n'.join(usages)
     # Information to record
+    name = problem['project']['name']
+    number = int(problem_dir.name)
     return pd.DataFrame(data={
         'tag': problem['fix']['tag'],
         'fixed': 'reverted' not in problem['fix'],
         'usages': usages,
-    }, index=[f'{problem['project']['name']}_{int(problem_dir.name)}'])
+    }, index=pd.Index(data=[f'{name}_{number}'], name='ID'))
 
 
 def get_project_data(project_dir: Path) -> pd.DataFrame:
@@ -64,6 +66,9 @@ def get_project_data(project_dir: Path) -> pd.DataFrame:
 
 def main() -> None:
     """Extract and save data from all projects as a CSV.
+
+    To read the CSV, use the following line of code.
+    >>> data = pd.read_csv('data.csv', index_col='ID')
     """
     # All projects across all languages
     data = []
@@ -73,9 +78,7 @@ def main() -> None:
             data.append(project_data)
     data = pd.concat(data)
     # Save data
-    data.to_csv('data.csv', index_label='ID')
-    data_new = pd.read_csv('data.csv', index_col='ID')
-    print(data_new)
+    data.to_csv('data.csv')
 
 
 if __name__ == '__main__':
