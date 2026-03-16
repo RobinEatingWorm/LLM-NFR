@@ -100,7 +100,17 @@ def main():
     """Reads the issue data from a CSV and prompts an LLM to decide on weather or not 
     the code follows the specificed NFR as well as give reasoning for it's decision
     """
-    models = ["mlx-community/Llama-3.2-1B-Instruct-bf16"]
+    models = [
+        "mlx-community/deepseek-coder-1.3b-instruct-mlx",
+        "mlx-community/deepseek-coder-6.7b-instruct-hf-4bit-mlx",
+        "mlx-community/Mistral-7B-Instruct-v0.2",
+        "mlx-community/Llama-3.2-1B-Instruct-bf16",
+        "mlx-community/Llama-3.2-3B-Instruct-bf16",
+        "mlx-community/phi-4-8bit",
+        "mlx-community/Qwen3.5-0.8B-MLX-4bit",
+        "mlx-community/Qwen3.5-4B-MLX-4bit",
+        "mlx-community/Qwen3.5-9B-MLX-4bit",
+    ]
     load_dotenv()
     login(os.getenv('HF_TOKEN'))
     for model_name in models:
