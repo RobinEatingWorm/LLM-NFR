@@ -27,7 +27,7 @@ def main():
     
     results["total"] = total
 
-    with open("all_results", 'w') as json_file:
+    with open("./results/all_results", 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
 

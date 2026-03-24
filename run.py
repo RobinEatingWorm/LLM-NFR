@@ -1,10 +1,13 @@
 import pandas as pd
+import mlx.core as mx
 from tqdm import tqdm
 from mlx_lm import load, generate
 from transformers import pipeline
-from huggingface_hub import login
+from huggingface_hub import login, snapshot_download
 import os
+from pathlib import Path
 from dotenv import load_dotenv
+
 
 messages = [
         {
@@ -44,10 +47,11 @@ def make_message(tag, code):
         The built user message to prompt the LLM with
     """  
         
-    message = {}
-    message["role"] = "user"
-    message["content"] = f'NFR: {tag} \nCode: {code}'
-    return message
+    # Strip leading/trailing whitespace from code to prevent "double newlines"
+    clean_code = code.strip()
+    # Use a clearer separator that the model recognizes from its training
+    content = f"NFR Category: {tag}\n\nCode Input:\n```python\n{clean_code}\n```"
+    return {"role": "user", "content": content}
 
 def make_entry(index, fixed, text):
     """Creates a row of data for the pd dataframe.
@@ -100,22 +104,24 @@ def main():
     """Reads the issue data from a CSV and prompts an LLM to decide on weather or not 
     the code follows the specificed NFR as well as give reasoning for it's decision
     """
+    os.environ["HF_XET_HIGH_PERFORMANCE"] = "1"
+
     models = [
-        "mlx-community/deepseek-coder-1.3b-instruct-mlx",
-        "mlx-community/deepseek-coder-6.7b-instruct-hf-4bit-mlx",
-        "mlx-community/Mistral-7B-Instruct-v0.2",
-        "mlx-community/Llama-3.2-1B-Instruct-bf16",
-        "mlx-community/Llama-3.2-3B-Instruct-bf16",
-        "mlx-community/phi-4-8bit",
-        "mlx-community/Qwen3.5-0.8B-MLX-4bit",
-        "mlx-community/Qwen3.5-4B-MLX-4bit",
+        # "./deepseek-coder-1.3b-instruct-mlx",
+        # "./deepseek-coder-6.7b-instruct-hf-4bit-mlx",
+        # "mlx-community/Llama-3.2-1B-Instruct-bf16",
+        # "mlx-community/Llama-3.2-3B-Instruct-bf16",
+        # "mlx-community/Qwen3.5-0.8B-MLX-4bit",
+        # "mlx-community/Qwen3.5-4B-MLX-4bit",
         "mlx-community/Qwen3.5-9B-MLX-4bit",
     ]
     load_dotenv()
     login(os.getenv('HF_TOKEN'))
+
     for model_name in models:
         model, tokenizer = load(model_name)
 
+        i = 0
         df = pd.read_csv("./data.csv", index_col=0)
         data = []
         for index, row in tqdm(df.iterrows(), total=len(df)):
@@ -125,11 +131,28 @@ def main():
             cur_message = messages + [message]
 
             prompt = tokenizer.apply_chat_template(
-                cur_message, add_generation_prompt=True
+                cur_message, add_generation_prompt=True,
+                enable_thinking=False, tokenize=False,
             )
-            text = generate(model, tokenizer, prompt=prompt)
-            values = text.split("\n")
+
+            response = generate(
+                model, 
+                tokenizer,
+                prompt=prompt)
+
+            values = []
+            if "deepseek" in model_name: 
+                if response[0] == "Y":
+                    values.append("Yes")
+                    values.append(response[3:])
+                else:
+                    values.append("No")
+                    values.append(response[2:])
+
+            else: 
+                values = response.split("\n")
             data.append(make_entry(index, row["fixed"], values))
+            
 
         data = pd.concat(data)
         data.to_csv(f'./results/{model_name.split("/")[1]}.csv')
