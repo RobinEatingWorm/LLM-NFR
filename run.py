@@ -107,12 +107,12 @@ def main():
     os.environ["HF_XET_HIGH_PERFORMANCE"] = "1"
 
     models = [
-        # "./deepseek-coder-1.3b-instruct-mlx",
-        # "./deepseek-coder-6.7b-instruct-hf-4bit-mlx",
-        # "mlx-community/Llama-3.2-1B-Instruct-bf16",
-        # "mlx-community/Llama-3.2-3B-Instruct-bf16",
-        # "mlx-community/Qwen3.5-0.8B-MLX-4bit",
-        # "mlx-community/Qwen3.5-4B-MLX-4bit",
+        "./models/deepseek-coder-1.3b-instruct-mlx",
+        "./models/deepseek-coder-6.7b-instruct-hf-4bit-mlx",
+        "mlx-community/Llama-3.2-1B-Instruct-bf16",
+        "mlx-community/Llama-3.2-3B-Instruct-bf16",
+        "mlx-community/Qwen3.5-0.8B-MLX-4bit",
+        "mlx-community/Qwen3.5-4B-MLX-4bit",
         "mlx-community/Qwen3.5-9B-MLX-4bit",
     ]
     load_dotenv()
