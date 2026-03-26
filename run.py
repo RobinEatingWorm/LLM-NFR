@@ -93,11 +93,13 @@ def make_entry(index, fixed, text):
             category = "TN"
         else: 
             category = "N/A"
-
-    return pd.DataFrame(data={
-        'category': category,
-        'reasoning': text[1],
-    }, index=pd.Index(data=[index], name='ID'))
+    try: 
+        return pd.DataFrame(data={
+            'category': category,
+            'reasoning': text[1],
+        }, index=pd.Index(data=[index], name='ID'))
+    except: 
+        return pd.DataFrame()
 
 
 def main():
@@ -109,11 +111,11 @@ def main():
     models = [
         "./models/deepseek-coder-1.3b-instruct-mlx",
         "./models/deepseek-coder-6.7b-instruct-hf-4bit-mlx",
-        "mlx-community/Llama-3.2-1B-Instruct-bf16",
-        "mlx-community/Llama-3.2-3B-Instruct-bf16",
-        "mlx-community/Qwen3.5-0.8B-MLX-4bit",
-        "mlx-community/Qwen3.5-4B-MLX-4bit",
-        "mlx-community/Qwen3.5-9B-MLX-4bit",
+        # "mlx-community/Llama-3.2-1B-Instruct-bf16",
+        # "mlx-community/Llama-3.2-3B-Instruct-bf16",
+        # "mlx-community/Qwen3.5-0.8B-MLX-4bit",
+        # "mlx-community/Qwen3.5-4B-MLX-4bit",
+        # "mlx-community/Qwen3.5-9B-MLX-4bit",
     ]
     load_dotenv()
     login(os.getenv('HF_TOKEN'))
@@ -141,7 +143,7 @@ def main():
                 prompt=prompt)
 
             values = []
-            if "deepseek" in model_name: 
+            if "deepseek" in model_name:
                 if response[0] == "Y":
                     values.append("Yes")
                     values.append(response[3:])
@@ -155,7 +157,10 @@ def main():
             
 
         data = pd.concat(data)
-        data.to_csv(f'./results/{model_name.split("/")[1]}.csv')
+        if "deepseek" in model_name:
+            data.to_csv(f'./results/{model_name.split("/")[2]}.csv')
+        else: 
+            data.to_csv(f'./results/{model_name.split("/")[1]}.csv')
 
 
 if __name__ == '__main__':
